@@ -1,0 +1,57 @@
+"use strict";
+exports.__esModule = true;
+var NatParInt_1 = require("./NatParInt");
+var Zero_1 = require("./Zero");
+var ZeroRec_1 = require("./ZeroRec");
+var Succ_1 = require("./Succ");
+var SuccRec_1 = require("./SuccRec");
+function test(fab) {
+    var deux;
+    deux = fab.creerNatAvecValeur(4);
+    console.log(deux.val().toString());
+}
+test(NatParInt_1.NatParInt.FAB);
+function test1(fab) {
+    var zero = fab.creerZero();
+    console.log("0 ? " + zero.val().toString());
+    console.log("0 = 0 ?" + zero.equals(new NatParInt_1.NatParInt(0)));
+    var un = fab.creerSuccesseur(zero);
+    console.log("1 ? " + un.val().toString());
+    console.log("1 = 1 ?" + un.equals(new NatParInt_1.NatParInt(1)));
+    console.log("Predecesseur de 1? " + un.predecesseur().toString());
+    var cinq = fab.creerNatAvecValeur(5);
+    console.log("5 ? " + cinq);
+    console.log("predecesseur de 5 ? " + cinq.predecesseur());
+    var six = fab.creerNatAvecValeur(6);
+    console.log("5 + 5 ? " + cinq.somme(six));
+    console.log("5 * 6 ? " + cinq.produit(six));
+    var ope = fab.creerNatAvecValeur(33);
+    console.log("33 / 6 quotien ? " + ope.div(six) + " -------- 33 mod 6 ? " + ope.modulo(six));
+    var grand = fab.creerNatAvecValeur(2000000000);
+    console.log("2000000000 + 2000000000 ? " + grand.somme(grand));
+}
+test1(new NatParInt_1.NatParInt(2));
+console.log("/******************************************/");
+console.log("******************************************");
+console.log("******************************************");
+console.log("******************************************");
+console.log("/******************************************/");
+test1(new Zero_1.Zero());
+console.log("/******************************************/");
+console.log("******************************************");
+console.log("******************************************");
+console.log("******************************************");
+console.log("/******************************************/");
+test1(new Succ_1.Succ(new NatParInt_1.NatParInt(1)));
+console.log("/******************************************/");
+console.log("******************************************");
+console.log("******************************************");
+console.log("******************************************");
+console.log("/******************************************/");
+test1(new ZeroRec_1.ZeroRec());
+console.log("/******************************************/");
+console.log("******************************************");
+console.log("******************************************");
+console.log("******************************************");
+console.log("/******************************************/");
+test1(new SuccRec_1.SuccRec(new NatParInt_1.NatParInt(4)));
