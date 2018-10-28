@@ -1,0 +1,16 @@
+{
+    "name": "cours_fil1",
+    "version": "1.0.0",
+    "description": "modularité et typage",
+    "engines": {
+        "node": "8.12.0"
+    },
+    "scripts": {
+        "tsc": "tsc",
+        "webpack": "webpack",
+        "build": "npm run tsc",
+        "td2": "node build/session2/td/testNaturels"
+    },
+    "devDependencies": {},
+    "dependencies": {}
+}
