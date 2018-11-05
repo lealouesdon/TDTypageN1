@@ -20,3 +20,8 @@ export interface Nat
     taille(): number;
     chiffre(i: number): number;
 }
+
+export interface NatInductif extends Nat{
+    creerNatAvecValeur(i : number) : Nat;
+    creerNatAvecRepresentation(repDecimale: string) : Nat;
+}

@@ -1,8 +1,50 @@
 import {
-    Nat, FabriqueNat
+    Nat, FabriqueNat, NatInductif
 } from "./naturels";
 
-export class Zero implements Nat {
+abstract class EtatZero implements NatInductif{
+    constructor () {};
+    abstract creerNatAvecValeur(i : number) : Nat;
+    abstract creerNatAvecRepresentation(repDecimale: string) : Nat;
+    abstract creerZero(): Nat;
+    abstract creerSuccesseur(predecesseur: Nat): Nat;
+    abstract val() : number;
+    abstract estNul() : boolean;
+    abstract predecesseur() : Nat;
+    abstract chiffre(i :number) : number;
+    abstract taille() : number;
+    abstract somme(x : Nat) : Nat;
+    abstract zero() : Nat;
+    abstract produit(x : Nat) : Nat;
+    abstract un() : Nat;
+    abstract modulo(x : Nat) : Nat;
+    abstract div(x : Nat) : Nat;
+    abstract estEgal(x : Nat) : boolean;
+    abstract representation() : string;
+}
+//////////////////////////////////////////////////////////////////////////
+abstract class EtatSucc implements NatInductif{
+    constructor () {};
+    abstract creerNatAvecValeur(i : number) : Nat;
+    abstract creerNatAvecRepresentation(repDecimale: string) : Nat;
+    abstract creerZero(): Nat;
+    abstract creerSuccesseur(predecesseur: Nat): Nat;
+    abstract val() : number;
+    abstract estNul() : boolean;
+    abstract predecesseur() : Nat;
+    abstract chiffre(i :number) : number;
+    abstract taille() : number;
+    abstract somme(x : Nat) : Nat;
+    abstract zero() : Nat;
+    abstract produit(x : Nat) : Nat;
+    abstract un() : Nat;
+    abstract modulo(x : Nat) : Nat;
+    abstract div(x : Nat) : Nat;
+    abstract estEgal(x : Nat) : boolean;
+    abstract representation() : string;
+}
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+export class ZeroCalculantSurInt extends EtatZero{
 
     val(): number {
         return 0;
@@ -29,7 +71,7 @@ export class Zero implements Nat {
     }
 
     creerSuccesseur(predecesseur: Nat): Nat {
-        return new Succ(predecesseur);
+        return new SuccCalculantSurInt(predecesseur);
     }
 
     creerNatAvecValeur(valeur: number): Nat {
@@ -75,13 +117,12 @@ export class Zero implements Nat {
     estEgal(n: Nat): boolean {
         return n.val() == this.val();
     }
-
-
 }
+//////////////////////////////////////////////////////////////////
 
-export class Succ implements Nat {
+export class SuccCalculantSurInt extends EtatSucc {
 
-    constructor(private pred: Nat) { }
+    constructor(private pred: Nat) { super();}
 
     val(): number {
         return this.pred.val() + 1;
@@ -105,11 +146,11 @@ export class Succ implements Nat {
     }
 
     creerZero(): Nat {
-        return new Zero();
+        return new ZeroCalculantSurInt();
     }
 
     creerSuccesseur(predecesseur: Nat): Nat {
-        return new Succ(predecesseur);
+        return new SuccCalculantSurInt(predecesseur);
     }
 
     creerNatAvecValeur(valeur: number): Nat {
@@ -154,11 +195,11 @@ export class Succ implements Nat {
         return n.val() == this.val();
     }
 }
+///////////////////////////////////////////////////////////////////////////////////////////////////
+export const zeroSuccZ: FabriqueNat<Nat> = new ZeroCalculantSurInt();
+export const zeroSuccS: FabriqueNat<Nat> = new SuccCalculantSurInt(new ZeroCalculantSurInt());
 
-export const zeroSuccZ: FabriqueNat<Nat> = new Zero();
-export const zeroSuccS: FabriqueNat<Nat> = new Succ(new Zero());
-
-export class ZeroRec extends Zero implements Nat {
+export class ZeroRec extends EtatZero implements Nat {
 
     creerZero(): Nat {
         return new ZeroRec();
@@ -199,9 +240,49 @@ export class ZeroRec extends Zero implements Nat {
         return n.estNul();
     }
 
-}
+    estNul(): boolean {
+        return true;
+    }
 
-export class SuccRec extends Succ implements Nat {
+    predecesseur(): Nat {
+        throw new Error("* Erreur : naturel nul sans prédécesseur.");
+    }
+
+    chiffre(i: number): number {
+        return 0;
+    }
+
+    taille(): number {
+        return 1;
+    }
+
+    val(): number {
+        return 0;
+    }
+
+    creerNatAvecValeur(valeur: number): Nat {
+
+        if (valeur === 0) {
+            return this.creerZero();
+        }
+        return this.creerSuccesseur(this.creerNatAvecValeur(valeur - 1));
+    }
+
+    creerNatAvecRepresentation(repDecimale: string): Nat {
+        return this.creerNatAvecValeur(parseInt(repDecimale));
+    }
+
+
+
+}
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+export class SuccRec extends EtatSucc {
+
+    constructor(private pred: Nat) { super();}
+
 
     creerZero(): Nat {
         return new ZeroRec();
@@ -246,6 +327,48 @@ export class SuccRec extends Succ implements Nat {
         return this.predecesseur().estEgal(n.predecesseur());
     }
 
+    val(): number {
+        return this.pred.val() + 1;
+    }
+
+    estNul(): boolean {
+        return false;
+    }
+
+    chiffre(i: number): number {
+        return parseInt(this.representation().charAt(this.taille() - 1 - i));
+
+    }
+
+    creerNatAvecValeur(valeur: number): Nat {
+        if (valeur === 0) {
+            return this.creerZero()
+        }
+        return this.creerSuccesseur(this.creerNatAvecValeur(valeur - 1));
+    }
+    creerNatAvecRepresentation(repDecimale: string): Nat {
+        return this.creerNatAvecValeur(parseInt(repDecimale));
+    }
+
+    representation(): string {
+        return this.val().toString();
+    }
+
+    un(): Nat {
+        return this.creerNatAvecValeur(1);
+    }
+
+    zero(): Nat {
+        return this.creerZero();
+    }
+
+    predecesseur(): Nat {
+        return this.pred;
+    }
+
+    taille(): number {
+        return this.representation().length;
+    }
 
 }
 
