@@ -1,20 +1,9 @@
-import {
-    FabriqueNat, Nat
-} from "./naturels"
-
-import {
-    natParInt
-} from "./natParInt"
-
-import {
-    zeroSuccRecS, zeroSuccRecZ, zeroSuccS, zeroSuccZ
-} from "./natInductif"
-
-import {
-    natDecimal
-} from "./natDecimal"
-import { produitRusse } from "./outils";
-
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+var natParInt_1 = require("./natParInt");
+var natInductif_1 = require("./natInductif");
+var natDecimal_1 = require("./natDecimal");
+var outils_1 = require("./outils");
 /*
 
 - Créer l'entier zéro à partir de la fabrique et l'affecter à une variable zero.
@@ -35,59 +24,51 @@ import { produitRusse } from "./outils";
 possiblement lancée. Voir les tests du paquet session1.demo1 pour un exemple de rattrapage.
 
 */
-
-function tester(fab: FabriqueNat<Nat>): void {
-    const zero = fab.creerZero();
+function tester(fab) {
+    var zero = fab.creerZero();
     console.log(" 0 ? " + zero.representation());
     console.log(" true ? " + zero.estEgal(zero.zero()));
-    const un = fab.creerSuccesseur(zero);
+    var un = fab.creerSuccesseur(zero);
     console.log(" 1 ? " + un.representation());
     console.log(" true ? " + un.estEgal(un.un()));
-    const predUn = un.predecesseur();
+    var predUn = un.predecesseur();
     console.log(" 0 ? " + predUn.representation());
-    const cinq = fab.creerNatAvecValeur(5);
+    var cinq = fab.creerNatAvecValeur(5);
     console.log(" 5 ? " + cinq.representation());
     console.log(" 4 ? " + cinq.predecesseur().representation());
-    const six = fab.creerNatAvecValeur(cinq.val() + 1);
+    var six = fab.creerNatAvecValeur(cinq.val() + 1);
     console.log(" 6 ? " + six.representation());
     console.log(" 5 + 6 soit 11 ? " + cinq.somme(six).representation());
     console.log(" 5 * 6 soit 30 ? " + cinq.produit(six).representation());
-    const trenteTrois = fab.creerNatAvecValeur(33);
+    var trenteTrois = fab.creerNatAvecValeur(33);
     console.log(" quotient de 33 par 6 soit 5 ? "
         + trenteTrois.div(six).representation());
     console.log(" reste de 33 par 6 soit 3 ? "
         + trenteTrois.modulo(six).representation());
 }
-
-function testerProduitRusse(fab: FabriqueNat<Nat>): void {
-    const sept = fab.creerNatAvecValeur(7);
-    const neuf = fab.creerNatAvecRepresentation("9");
-    const dix = fab.creerSuccesseur(neuf);
-    console.log("63 ? " + produitRusse(sept, neuf, dix).representation());
+function testerProduitRusse(fab) {
+    var sept = fab.creerNatAvecValeur(7);
+    var neuf = fab.creerNatAvecRepresentation("9");
+    var dix = fab.creerSuccesseur(neuf);
+    console.log("63 ? " + outils_1.produitRusse(sept, neuf, dix).representation());
 }
-
-console.log("*** NatParInt ***")
-tester(natParInt)
-
+console.log("*** NatParInt ***");
+tester(natParInt_1.natParInt);
 console.log("*** Zero ***");
-tester(zeroSuccZ);
-
+tester(natInductif_1.zeroSuccZ);
 console.log("*** ZeroRec ***");
-tester(zeroSuccRecZ);
-
+tester(natInductif_1.zeroSuccRecZ);
 console.log("*** Succ ***");
-tester(zeroSuccS);
-
+tester(natInductif_1.zeroSuccS);
 console.log("*** SuccRec ***");
-tester(zeroSuccRecS);
-
+tester(natInductif_1.zeroSuccRecS);
 console.log("*** NatDecimal ***");
-tester(natDecimal);
-
+tester(natDecimal_1.natDecimal);
 console.log("*** Produit russe ***");
-testerProduitRusse(natParInt);
-testerProduitRusse(zeroSuccZ);
-testerProduitRusse(zeroSuccRecZ);
-testerProduitRusse(zeroSuccS);
-testerProduitRusse(zeroSuccRecS);
-testerProduitRusse(natDecimal);
+testerProduitRusse(natParInt_1.natParInt);
+testerProduitRusse(natInductif_1.zeroSuccZ);
+testerProduitRusse(natInductif_1.zeroSuccRecZ);
+testerProduitRusse(natInductif_1.zeroSuccS);
+testerProduitRusse(natInductif_1.zeroSuccRecS);
+testerProduitRusse(natDecimal_1.natDecimal);
+//# sourceMappingURL=testNaturels.js.map

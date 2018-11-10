@@ -1,30 +1,28 @@
-import {
-    Nat, FabriqueNat
-} from "./naturels";
-import { assembleurString } from "../../../bibliotheque/assembleurChaine";
-
-function nettoyage(s: string): string {
-    const a = assembleurString(s);
-    for (let i = 0; i < s.length; i++) {
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+var assembleurChaine_1 = require("../../../bibliotheque/assembleurChaine");
+function nettoyage(s) {
+    var a = assembleurChaine_1.assembleurString(s);
+    for (var i = 0; i < s.length; i++) {
         if (s.charAt(i) === "0") {
             a.retirerCaractereDebut();
-        } else {
+        }
+        else {
             break;
         }
     }
     return a.chaine();
 }
-
-export class NatDecimal implements Nat {
-
+var NatDecimal = /** @class */ (function () {
     /*
     * Aucun contrôle n'est réalisé. L'argument est supposé correct :
     * - représentation décimale (suite de 0 et 1, pas de 0 en tête inutile).
     * Pour un contrôle, utiliser la fabrique.
     */
-    constructor(private chiffres: string) { }
-
-    creerNatAvecRepresentation(repDecimale: string): Nat {
+    function NatDecimal(chiffres) {
+        this.chiffres = chiffres;
+    }
+    NatDecimal.prototype.creerNatAvecRepresentation = function (repDecimale) {
         if (repDecimale.search(/^d/) !== -1) {
             throw new Error("* Erreur : représentation non décimale.");
         }
@@ -33,28 +31,24 @@ export class NatDecimal implements Nat {
             repDecimale = "0";
         }
         return new NatDecimal(repDecimale);
-
-
-    }
-
-    creerNatAvecValeur(valeur: number): Nat {
+    };
+    NatDecimal.prototype.creerNatAvecValeur = function (valeur) {
         return new NatDecimal(valeur.toString());
-    }
-
-    creerZero(): Nat {
+    };
+    NatDecimal.prototype.creerZero = function () {
         return new NatDecimal("0");
-    }
-
-    creerSuccesseur(predecesseur: Nat): Nat {
-        let t = predecesseur.taille();
-        const a = assembleurString("");
-        let retenue = 1;
-        for (let i = 0; i < t; i++) {
-            let chiffre = predecesseur.chiffre(i) + retenue;
+    };
+    NatDecimal.prototype.creerSuccesseur = function (predecesseur) {
+        var t = predecesseur.taille();
+        var a = assembleurChaine_1.assembleurString("");
+        var retenue = 1;
+        for (var i = 0; i < t; i++) {
+            var chiffre = predecesseur.chiffre(i) + retenue;
             if (chiffre > 9) {
                 chiffre = chiffre - 10;
                 retenue = 1;
-            } else {
+            }
+            else {
                 retenue = 0;
             }
             a.ajouterCaractereDebut(chiffre.toString());
@@ -63,57 +57,53 @@ export class NatDecimal implements Nat {
             a.ajouterCaractereDebut("1");
         }
         return new NatDecimal(a.chaine());
-    }
-
-    val(): number {
+    };
+    NatDecimal.prototype.val = function () {
         return parseInt(this.chiffres);
-    }
-
-    estNul(): boolean {
+    };
+    NatDecimal.prototype.estNul = function () {
         return this.val() == 0;
-    }
-
-    predecesseur(): Nat {
+    };
+    NatDecimal.prototype.predecesseur = function () {
         if (this.estNul()) {
             throw new Error("* Erreur : naturel nul sans prédécesseur.");
         }
-        const t = this.taille();
-        const rep: string[] = [];
-        let retenue = -1;
-        for (let i = 0; i < t; i++) {
-            let chiffre = this.chiffre(i) + retenue;
+        var t = this.taille();
+        var rep = [];
+        var retenue = -1;
+        for (var i = 0; i < t; i++) {
+            var chiffre = this.chiffre(i) + retenue;
             if (chiffre === -1) {
                 chiffre = 9;
                 retenue = -1;
-            } else {
+            }
+            else {
                 retenue = 0;
             }
             rep.push(chiffre.toString());
         }
         return this.creerNatAvecRepresentation(rep.reverse().join(""));
-    }
-
-    taille(): number {
+    };
+    NatDecimal.prototype.taille = function () {
         return this.chiffres.length;
-    }
-
-    chiffre(i: number): number {
+    };
+    NatDecimal.prototype.chiffre = function (i) {
         if (i < this.taille()) {
             return parseInt(this.chiffres.charAt(this.taille() - 1 - i));
         }
         return 0;
-    }
-
-    somme(x: Nat): Nat {
-        const t = this.taille() < x.taille() ? x.taille() : this.taille();
-        const rep: string[] = [];
-        let retenue = 0;
-        for (let i = 0; i < t; i++) {
-            let chiffre = this.chiffre(i) + x.chiffre(i) + retenue;
+    };
+    NatDecimal.prototype.somme = function (x) {
+        var t = this.taille() < x.taille() ? x.taille() : this.taille();
+        var rep = [];
+        var retenue = 0;
+        for (var i = 0; i < t; i++) {
+            var chiffre = this.chiffre(i) + x.chiffre(i) + retenue;
             if (chiffre > 9) {
                 chiffre = chiffre - 10;
                 retenue = 1;
-            } else {
+            }
+            else {
                 retenue = 0;
             }
             rep.push(chiffre.toString());
@@ -122,35 +112,31 @@ export class NatDecimal implements Nat {
             rep.push("1");
         }
         return this.creerNatAvecRepresentation(rep.reverse().join(""));
-    }
-
-    zero(): Nat {
+    };
+    NatDecimal.prototype.zero = function () {
         return this.creerZero();
-    }
-
-    produit(x: Nat): Nat {
+    };
+    NatDecimal.prototype.produit = function (x) {
         if (x.estEgal(DIX)) {
             return this.creerNatAvecRepresentation(this.representation() + "0");
         }
-        let res = this.zero();
-        let index = this.zero();
+        var res = this.zero();
+        var index = this.zero();
         while (!index.estEgal(x)) {
             res = res.somme(this);
             index = this.creerSuccesseur(index);
         }
         return res;
-    }
-
-    un(): Nat {
+    };
+    NatDecimal.prototype.un = function () {
         return this.creerNatAvecRepresentation("1");
-    }
-
-    modulo(x: Nat): Nat {
+    };
+    NatDecimal.prototype.modulo = function (x) {
         if (x.estEgal(DIX)) {
             return this.creerNatAvecValeur(this.chiffre(0));
         }
-        let courant = this.zero();
-        let r = this.zero();
+        var courant = this.zero();
+        var r = this.zero();
         while (!courant.estEgal(this)) {
             r = this.creerSuccesseur(r);
             if (r.estEgal(x)) {
@@ -159,18 +145,16 @@ export class NatDecimal implements Nat {
             courant = this.creerSuccesseur(courant);
         }
         return r;
-    }
-
-    div(x: Nat): Nat {
+    };
+    NatDecimal.prototype.div = function (x) {
         if (x.estEgal(DIX)) {
             if (this.taille() == 1)
                 return this.zero();
-            return this.creerNatAvecRepresentation(
-                this.representation().substring(0, this.taille() - 1));
+            return this.creerNatAvecRepresentation(this.representation().substring(0, this.taille() - 1));
         }
-        let courant = this.zero();
-        let q = this.zero();
-        let r = this.zero();
+        var courant = this.zero();
+        var q = this.zero();
+        var r = this.zero();
         while (!courant.estEgal(this)) {
             r = this.creerSuccesseur(r);
             if (r.estEgal(x)) {
@@ -180,19 +164,16 @@ export class NatDecimal implements Nat {
             courant = this.creerSuccesseur(courant);
         }
         return q;
-    }
-
-    representation(): string {
+    };
+    NatDecimal.prototype.representation = function () {
         return this.chiffres;
-    }
-
-    estEgal(n: Nat): boolean {
+    };
+    NatDecimal.prototype.estEgal = function (n) {
         return this.representation() === n.representation();
-    }
-
-
-}
-
-export const natDecimal: FabriqueNat<Nat> = new NatDecimal("0");
-
-const DIX: Nat = natDecimal.creerNatAvecRepresentation("10");
+    };
+    return NatDecimal;
+}());
+exports.NatDecimal = NatDecimal;
+exports.natDecimal = new NatDecimal("0");
+var DIX = exports.natDecimal.creerNatAvecRepresentation("10");
+//# sourceMappingURL=natDecimal.js.map

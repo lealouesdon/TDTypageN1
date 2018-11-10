@@ -1,8 +1,5 @@
-import {
-    SemiAnneauUnitaireEuclidien
-} from "../../../structuresAlgebriques/hierarchie";
-import { Identifiable } from "../../../bibliotheque/proprietes";
-
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
 /*
  * Calcul du produit reposant sur l'identité suivante :
  * - x * y = x * (y/base) * base + x * y%base)
@@ -12,13 +9,11 @@ import { Identifiable } from "../../../bibliotheque/proprietes";
  * Elle est dite russe lorsque la base vaut deux ; c'est aussi la méthode habituelle
  * de calcul en base 10, lorsqu'on réalise manuellement le calcul.
 */
-export function
-    produitRusse<T extends SemiAnneauUnitaireEuclidien<T> & Identifiable<T>>(
-        x: T, y: T, base: T): T {
-    const zero = x.zero();
-    let resultat = zero;
+function produitRusse(x, y, base) {
+    var zero = x.zero();
+    var resultat = zero;
     while (!y.estEgal(zero)) {
-        const reste = y.modulo(base);
+        var reste = y.modulo(base);
         if (!reste.estEgal(zero)) {
             resultat = resultat.somme(x.produit(reste));
         }
@@ -27,3 +22,5 @@ export function
     }
     return resultat;
 }
+exports.produitRusse = produitRusse;
+//# sourceMappingURL=outils.js.map

@@ -1,7 +1,7 @@
 import {
     SemiAnneauUnitaireEuclidien
-} from "../../structuresAlgebriques/hierarchie";
-import { Representable, Identifiable } from "../../bibliotheque/proprietes";
+} from "../../../structuresAlgebriques/hierarchie";
+import { Representable, Identifiable } from "../../../bibliotheque/proprietes";
 
 export interface FabriqueNat<T> {
     creerNatAvecValeur(valeur: number): T;
@@ -24,4 +24,59 @@ export interface Nat
 export interface NatInductif extends Nat{
     creerNatAvecValeur(i : number) : Nat;
     creerNatAvecRepresentation(repDecimale: string) : Nat;
+}
+
+export interface AlgebreNatRecursifSuccesseur extends Nat{
+    somme(nb : Nat) : Nat;
+    zero() : Nat;
+    produit(nb : Nat) : Nat;
+    un() : Nat;
+    modulo(nb : Nat) : Nat;
+    div(nb : Nat) : Nat;
+    estEgal(obj : Object) : boolean;
+    representer() : string;
+}
+
+export interface AlgebreNatRecursifZero extends Nat{
+    somme(nb : Nat) : Nat;
+    zero() : Nat;
+    produit(nb : Nat) : Nat;
+    un() : Nat;
+    modulo(nb : Nat) : Nat;
+    div(nb : Nat) : Nat;
+    estEgal(obj : Object) : boolean;
+    representer() : string;
+}
+
+export interface AlgebreNatRecursif extends AlgebreNatRecursifSuccesseur,AlgebreNatRecursifZero{
+    somme(nb : Nat) : Nat;
+    zero() : Nat;
+    produit(nb : Nat) : Nat;
+    un() : Nat;
+    modulo(nb : Nat) : Nat;
+    div(nb : Nat) : Nat;
+    estEgal(obj : Object) : boolean;
+    representer() : string;
+}
+
+export interface AlgebreNatParInt extends Nat{
+    somme(nb : Nat) : Nat;
+    zero() : Nat;
+    produit(nb : Nat) : Nat;
+    un() : Nat;
+    modulo(nb : Nat) : Nat;
+    div(nb : Nat) : Nat;
+    estEgal(obj : Object) : boolean;
+    representer() : string;
+}
+
+export interface AlgebreNatDecimal extends Nat{
+    somme(nb : Nat) : Nat;
+    zero() : Nat;
+    produit(nb : Nat) : Nat;
+    un() : Nat;
+    modulo(nb : Nat) : Nat;
+    div(nb : Nat) : Nat;
+    estEgal(obj : Object) : boolean;
+    representer() : string;
 }
