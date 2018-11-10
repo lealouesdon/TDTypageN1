@@ -9,7 +9,8 @@
         "tsc": "tsc",
         "webpack": "webpack",
         "build": "npm run tsc",
-        "td2": "node build/session2/td/testNaturels"
+        "td2-v1": "node build/session2/td-v1/testNaturels",
+        "td2-v2": "node build/session2/td-v2/testNaturels"
     },
     "devDependencies": {},
     "dependencies": {}
