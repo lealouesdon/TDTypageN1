@@ -1,7 +1,11 @@
 import {
-    Nat, FabriqueNat
+    Nat, FabriqueNat, AlgebreNatDecimal,AlgebreNatParInt, AlgebreNatRecursif
 } from "./naturels";
 import { assembleurString } from "../../../bibliotheque/assembleurChaine";
+
+import {
+    NombreDecimal
+} from "./natInductif";
 
 function nettoyage(s: string): string {
     const a = assembleurString(s);
@@ -15,14 +19,14 @@ function nettoyage(s: string): string {
     return a.chaine();
 }
 
-export class NatDecimal implements Nat {
+export class NatDecimal extends NombreDecimal implements AlgebreNatDecimal {
 
     /*
     * Aucun contrôle n'est réalisé. L'argument est supposé correct :
     * - représentation décimale (suite de 0 et 1, pas de 0 en tête inutile).
     * Pour un contrôle, utiliser la fabrique.
     */
-    constructor(private chiffres: string) { }
+    constructor(chiffres: string) {super(chiffres); }
 
     creerNatAvecRepresentation(repDecimale: string): Nat {
         if (repDecimale.search(/^d/) !== -1) {
@@ -65,9 +69,6 @@ export class NatDecimal implements Nat {
         return new NatDecimal(a.chaine());
     }
 
-    val(): number {
-        return parseInt(this.chiffres);
-    }
 
     estNul(): boolean {
         return this.val() == 0;
@@ -91,17 +92,6 @@ export class NatDecimal implements Nat {
             rep.push(chiffre.toString());
         }
         return this.creerNatAvecRepresentation(rep.reverse().join(""));
-    }
-
-    taille(): number {
-        return this.chiffres.length;
-    }
-
-    chiffre(i: number): number {
-        if (i < this.taille()) {
-            return parseInt(this.chiffres.charAt(this.taille() - 1 - i));
-        }
-        return 0;
     }
 
     somme(x: Nat): Nat {
@@ -183,7 +173,7 @@ export class NatDecimal implements Nat {
     }
 
     representation(): string {
-        return this.chiffres;
+        return super.representation();
     }
 
     estEgal(n: Nat): boolean {
@@ -196,3 +186,43 @@ export class NatDecimal implements Nat {
 export const natDecimal: FabriqueNat<Nat> = new NatDecimal("0");
 
 const DIX: Nat = natDecimal.creerNatAvecRepresentation("10");
+
+export class NatDecimalParInt extends NombreDecimal implements AlgebreNatParInt {
+  constructor(chiffres: string) {super(chiffres); }
+
+  creerNatAvecRepresentation(repDecimale: string): Nat {
+      if (repDecimale.search(/^d/) !== -1) {
+          throw new Error("* Erreur : représentation non décimale.");
+      }
+      repDecimale = nettoyage(repDecimale);
+      if (repDecimale === "") {
+          repDecimale = "0";
+      }
+      return new NatDecimal(repDecimale);
+  }
+
+  toString() : string{
+    return super.representation();
+  }
+
+}
+
+export class NatDecimalRecursif extends NombreDecimal implements AlgebreNatRecursif {
+  constructor(chiffres: string) {super(chiffres); }
+
+  creerNatAvecRepresentation(repDecimale: string): Nat {
+      if (repDecimale.search(/^d/) !== -1) {
+          throw new Error("* Erreur : représentation non décimale.");
+      }
+      repDecimale = nettoyage(repDecimale);
+      if (repDecimale === "") {
+          repDecimale = "0";
+      }
+      return new NatDecimal(repDecimale);
+  }
+
+  toString() : string{
+    return super.representation();
+  }
+
+}

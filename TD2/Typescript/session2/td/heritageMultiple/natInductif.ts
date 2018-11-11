@@ -1,9 +1,13 @@
 import {
-    Nat, FabriqueNat
+    Nat, FabriqueNat, AlgebreNatRecursifZero,AlgebreNatRecursifSuccesseur, AlgebreNatDecimal
 } from "./naturels";
 
+import {
+    NatParInt
+} from "./natParInt";
+
 /////////////////////////////////////////////////////
-export class NombreDecimal implements Nat {
+export abstract class NombreDecimal implements Nat {
     constructor(private nb: string) { }
 
     chiffre(i : number) : number{
@@ -27,7 +31,7 @@ export class NombreDecimal implements Nat {
     }
 
     creerSuccesseur(predecesseur: Nat): Nat {
-        return new Succ(predecesseur);
+        return new SuccParInt(predecesseur);
     }
 
     creerNatAvecValeur(valeur: number): Nat {
@@ -39,7 +43,7 @@ export class NombreDecimal implements Nat {
     }
 
     creerZero() : Nat {
-      return new Zero();
+      return new ZeroParInt();
     }
 
     creerNatAvecRepresentation(repDecimale: string): Nat {
@@ -81,13 +85,249 @@ export class NombreDecimal implements Nat {
 }
 /////////////////////////////////////////////////////
 
+export abstract class IntPositif implements Nat {
+    constructor(private nb: number) { }
 
+    chiffre(i : number) : number{
+      return parseInt(this.representation().charAt(this.taille() - 1 - i));;
+    }
 
+    taille() : number{
+      return this.representation().length;
+    }
+
+    val() : number{
+      return this.nb;
+    }
+
+    estNul() : boolean{
+      return false;
+    }
+
+    predecesseur() : Nat{
+      return this.creerNatAvecValeur(this.val() - 1);
+    }
+
+    creerSuccesseur(predecesseur: Nat): Nat {
+        return new SuccParInt(predecesseur);
+    }
+
+    creerNatAvecValeur(valeur: number): Nat {
+
+        if (valeur === 0) {
+            return this.creerZero();
+        }
+        return this.creerSuccesseur(this.creerNatAvecValeur(valeur - 1));
+    }
+
+    creerZero() : Nat {
+      return new ZeroParInt();
+    }
+
+    creerNatAvecRepresentation(repDecimale: string): Nat {
+        return this.creerNatAvecValeur(parseInt(repDecimale));
+    }
+
+    somme(x: Nat): Nat {
+        return this.creerNatAvecValeur(x.val() + this.val());
+    }
+
+    zero(): Nat {
+        return this.creerZero();
+    }
+
+    un(): Nat {
+        return this.creerNatAvecValeur(1);
+    }
+
+    modulo(x: Nat): Nat {
+        return this.creerNatAvecValeur(this.val() % x.val());
+    }
+
+    div(x: Nat): Nat {
+        return this.creerNatAvecValeur(Math.floor(this.val() / x.val()));
+    }
+
+    produit(x: Nat): Nat {
+        return this.creerNatAvecValeur(x.val() * this.val());
+    }
+
+    representation(): string {
+        return this.val().toString();
+    }
+
+    estEgal(n: Nat): boolean {
+        return n.val() == this.val();
+    }
+
+}
+
+///////////////////////////////////////
+
+export abstract class EtatSucc implements Nat {
+    constructor(private pred: Nat) { }
+
+    chiffre(i : number) : number{
+      return parseInt(this.representation().charAt(this.taille() - 1 - i));;
+    }
+
+    taille() : number{
+      return this.representation().length;
+    }
+
+    val() : number{
+      return this.pred.val() - 1;
+    }
+
+    estNul() : boolean{
+      return false;
+    }
+
+    predecesseur() : Nat{
+      return this.pred;
+    }
+
+    creerSuccesseur(predecesseur: Nat): Nat {
+        return new SuccParInt(predecesseur);
+    }
+
+    creerNatAvecValeur(valeur: number): Nat {
+        if (valeur < 0) {
+            throw new Error('* Erreur : valeur négative.');
+        }
+        if (valeur % 1 !== 0) {
+            throw new Error('* Erreur : valeur non entière.');
+        }
+        return new NatParInt(valeur);
+    }
+
+    creerZero() : Nat {
+      return new ZeroParInt();
+    }
+
+    creerNatAvecRepresentation(repDecimale: string): Nat {
+        return this.creerNatAvecValeur(parseInt(repDecimale));
+    }
+
+    somme(x: Nat): Nat {
+        return this.creerNatAvecValeur(x.val() + this.val());
+    }
+
+    zero(): Nat {
+        return this.creerZero();
+    }
+
+    un(): Nat {
+        return this.creerNatAvecValeur(1);
+    }
+
+    modulo(x: Nat): Nat {
+        return this.creerNatAvecValeur(this.val() % x.val());
+    }
+
+    div(x: Nat): Nat {
+        return this.creerNatAvecValeur(Math.floor(this.val() / x.val()));
+    }
+
+    produit(x: Nat): Nat {
+        return this.creerNatAvecValeur(x.val() * this.val());
+    }
+
+    representation(): string {
+        return this.val().toString();
+    }
+
+    estEgal(n: Nat): boolean {
+        return n.val() == this.val();
+    }
+
+}
+
+///////////////////////////////////////
+
+export abstract class EtatZero implements Nat {
+    constructor() { }
+
+    chiffre(i : number) : number{
+      return 0;
+    }
+
+    taille() : number{
+      return 0;
+    }
+
+    val() : number{
+      return 0;
+    }
+
+    estNul() : boolean{
+      return false;
+    }
+
+    predecesseur() : Nat{
+      throw new Error("* Erreur : naturel nul sans prédécesseur.");
+    }
+
+    creerSuccesseur(predecesseur: Nat): Nat {
+        return new SuccParInt(predecesseur);
+    }
+
+    creerNatAvecValeur(valeur: number): Nat {
+        if (valeur < 0) {
+            throw new Error('* Erreur : valeur négative.');
+        }
+        if (valeur % 1 !== 0) {
+            throw new Error('* Erreur : valeur non entière.');
+        }
+        return new NatParInt(valeur);
+    }
+
+    creerZero() : Nat {
+      return this;
+    }
+
+    creerNatAvecRepresentation(repDecimale: string): Nat {
+        return this.creerNatAvecValeur(parseInt(repDecimale));
+    }
+
+    somme(x: Nat): Nat {
+        return this.creerNatAvecValeur(x.val() + this.val());
+    }
+
+    zero(): Nat {
+        return this.creerZero();
+    }
+
+    un(): Nat {
+        return this.creerNatAvecValeur(1);
+    }
+
+    modulo(x: Nat): Nat {
+        return this.creerNatAvecValeur(this.val() % x.val());
+    }
+
+    div(x: Nat): Nat {
+        return this.creerNatAvecValeur(Math.floor(this.val() / x.val()));
+    }
+
+    produit(x: Nat): Nat {
+        return this.creerNatAvecValeur(x.val() * this.val());
+    }
+
+    representation(): string {
+        return this.val().toString();
+    }
+
+    estEgal(n: Nat): boolean {
+        return n.val() == this.val();
+    }
+
+}
 
 
 
 ////////////////////////////////////////////////////
-export class Zero implements Nat {
+export class ZeroParInt extends EtatZero {
 
     val(): number {
         return 0;
@@ -114,15 +354,7 @@ export class Zero implements Nat {
     }
 
     creerSuccesseur(predecesseur: Nat): Nat {
-        return new Succ(predecesseur);
-    }
-
-    creerNatAvecValeur(valeur: number): Nat {
-
-        if (valeur === 0) {
-            return this.creerZero();
-        }
-        return this.creerSuccesseur(this.creerNatAvecValeur(valeur - 1));
+        return new SuccParInt(predecesseur);
     }
 
     creerNatAvecRepresentation(repDecimale: string): Nat {
@@ -164,21 +396,16 @@ export class Zero implements Nat {
 
 }
 
-export class Succ implements Nat {
+export class SuccParInt extends EtatSucc {
 
-    constructor(private pred: Nat) { }
+    constructor(pred: Nat) {super(pred); }
 
-    val(): number {
-        return this.pred.val() + 1;
-    }
 
     estNul(): boolean {
         return false;
     }
 
-    predecesseur(): Nat {
-        return this.pred;
-    }
+
 
     taille(): number {
         return this.representation().length;
@@ -190,19 +417,13 @@ export class Succ implements Nat {
     }
 
     creerZero(): Nat {
-        return new Zero();
+        return new ZeroParInt();
     }
 
     creerSuccesseur(predecesseur: Nat): Nat {
-        return new Succ(predecesseur);
+        return new SuccParInt(predecesseur);
     }
 
-    creerNatAvecValeur(valeur: number): Nat {
-        if (valeur === 0) {
-            return this.creerZero()
-        }
-        return this.creerSuccesseur(this.creerNatAvecValeur(valeur - 1));
-    }
     creerNatAvecRepresentation(repDecimale: string): Nat {
         return this.creerNatAvecValeur(parseInt(repDecimale));
     }
@@ -240,10 +461,10 @@ export class Succ implements Nat {
     }
 }
 
-export const zeroSuccZ: FabriqueNat<Nat> = new Zero();
-export const zeroSuccS: FabriqueNat<Nat> = new Succ(new Zero());
+export const zeroSuccZ: FabriqueNat<Nat> = new ZeroParInt();
+export const zeroSuccS: FabriqueNat<Nat> = new SuccParInt(new ZeroParInt());
 
-export class ZeroRec extends Zero implements Nat {
+export class ZeroRec extends EtatZero implements AlgebreNatRecursifZero {
 
     creerZero(): Nat {
         return new ZeroRec();
@@ -286,7 +507,7 @@ export class ZeroRec extends Zero implements Nat {
 
 }
 
-export class SuccRec extends Succ implements Nat {
+export class SuccRec extends EtatSucc implements AlgebreNatRecursifSuccesseur {
 
     creerZero(): Nat {
         return new ZeroRec();
@@ -336,3 +557,21 @@ export class SuccRec extends Succ implements Nat {
 
 export const zeroSuccRecZ: FabriqueNat<Nat> = new ZeroRec();
 export const zeroSuccRecS: FabriqueNat<Nat> = new SuccRec(new ZeroRec());
+
+export class SuccDecimal extends EtatSucc implements AlgebreNatDecimal {
+  constructor(pred: Nat) {super(pred); }
+
+  creerZero() : Nat{
+    return new ZeroDecimal();
+  }
+
+}
+
+export class ZeroDecimal extends EtatZero implements AlgebreNatDecimal {
+
+  creerZero() : Nat{
+    return this;
+  }
+
+
+}

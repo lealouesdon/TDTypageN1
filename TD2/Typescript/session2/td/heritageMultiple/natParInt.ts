@@ -1,10 +1,15 @@
 import {
-    Nat, FabriqueNat
+    AlgebreNatParInt,Nat,FabriqueNat, AlgebreNatDecimal,AlgebreNatRecursif
 } from "./naturels";
 
-export class NatParInt implements Nat {
+import {
+    IntPositif
+} from "./natInductif";
 
-    constructor(private valeur: number) {
+export class NatParInt extends IntPositif implements AlgebreNatParInt {
+
+    constructor(valeur: number) {
+      super(valeur);
     }
 
     creerNatAvecValeur(valeur: number): Nat {
@@ -16,26 +21,12 @@ export class NatParInt implements Nat {
         }
         return new NatParInt(valeur);
     }
-
-    creerZero(): Nat {
-        return this.creerNatAvecValeur(0);
-    }
-
-    creerSuccesseur(predecesseur: Nat): Nat {
-        return this.creerNatAvecValeur(predecesseur.val() + 1);
-    }
-
     creerNatAvecRepresentation(repDecimale: string): Nat {
         return this.creerNatAvecValeur(parseInt(repDecimale));
     }
 
-
-    val(): number {
-        return this.valeur;
-    }
-
     estNul(): boolean {
-        return this.val() === 0;
+        return super.val() === 0;
     }
 
     predecesseur(): Nat {
@@ -91,3 +82,32 @@ export class NatParInt implements Nat {
 
 export const natParInt: FabriqueNat<Nat> = new NatParInt(0);
 
+export class NatParIntDecimal extends IntPositif implements AlgebreNatDecimal {
+  constructor(valeur: number) {
+    super(valeur);
+  }
+
+  creerNatAvecRepresentation(repDecimale: string): Nat {
+      return this.creerNatAvecValeur(parseInt(repDecimale));
+  }
+
+  toString() : string{
+    return super.representation();
+  }
+
+}
+
+export class NatParIntRecursif extends IntPositif implements AlgebreNatRecursif {
+  constructor(valeur: number) {
+    super(valeur);
+  }
+
+  creerNatAvecRepresentation(repDecimale: string): Nat {
+      return this.creerNatAvecValeur(parseInt(repDecimale));
+  }
+
+  toString() : string{
+    return super.representation();
+  }
+
+}

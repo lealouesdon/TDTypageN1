@@ -9,7 +9,9 @@
         "tsc": "tsc",
         "webpack": "webpack",
         "build": "npm run tsc",
-        "heritageMultiple": "node build/session2/td//heritageMultiple/testNaturels"
+        "heritageMultiple": "node build/session2/td/heritageMultiple/testNaturels",
+        "agregation": "node build/session2/td/agregation/testNaturels"
+
     },
     "devDependencies": {},
     "dependencies": {}

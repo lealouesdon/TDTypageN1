@@ -34,7 +34,7 @@ export interface AlgebreNatRecursifSuccesseur extends Nat{
     modulo(nb : Nat) : Nat;
     div(nb : Nat) : Nat;
     estEgal(obj : Object) : boolean;
-    representer() : string;
+    representation() : string;
 }
 
 export interface AlgebreNatRecursifZero extends Nat{
@@ -45,7 +45,7 @@ export interface AlgebreNatRecursifZero extends Nat{
     modulo(nb : Nat) : Nat;
     div(nb : Nat) : Nat;
     estEgal(obj : Object) : boolean;
-    representer() : string;
+    representation() : string;
 }
 
 export interface AlgebreNatRecursif extends AlgebreNatRecursifSuccesseur,AlgebreNatRecursifZero{
@@ -56,7 +56,7 @@ export interface AlgebreNatRecursif extends AlgebreNatRecursifSuccesseur,Algebre
     modulo(nb : Nat) : Nat;
     div(nb : Nat) : Nat;
     estEgal(obj : Object) : boolean;
-    representer() : string;
+    representation() : string;
 }
 
 export interface AlgebreNatParInt extends Nat{
@@ -67,7 +67,7 @@ export interface AlgebreNatParInt extends Nat{
     modulo(nb : Nat) : Nat;
     div(nb : Nat) : Nat;
     estEgal(obj : Object) : boolean;
-    representer() : string;
+    representation() : string;
 }
 
 export interface AlgebreNatDecimal extends Nat{
@@ -78,5 +78,5 @@ export interface AlgebreNatDecimal extends Nat{
     modulo(nb : Nat) : Nat;
     div(nb : Nat) : Nat;
     estEgal(obj : Object) : boolean;
-    representer() : string;
+    representation() : string;
 }

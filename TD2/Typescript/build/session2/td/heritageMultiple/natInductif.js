@@ -13,6 +13,7 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
+var natParInt_1 = require("./natParInt");
 /////////////////////////////////////////////////////
 var NombreDecimal = /** @class */ (function () {
     function NombreDecimal(nb) {
@@ -35,7 +36,7 @@ var NombreDecimal = /** @class */ (function () {
         return this.creerNatAvecValeur(this.val() - 1);
     };
     NombreDecimal.prototype.creerSuccesseur = function (predecesseur) {
-        return new Succ(predecesseur);
+        return new SuccParInt(predecesseur);
     };
     NombreDecimal.prototype.creerNatAvecValeur = function (valeur) {
         if (valeur === 0) {
@@ -44,7 +45,7 @@ var NombreDecimal = /** @class */ (function () {
         return this.creerSuccesseur(this.creerNatAvecValeur(valeur - 1));
     };
     NombreDecimal.prototype.creerZero = function () {
-        return new Zero();
+        return new ZeroParInt();
     };
     NombreDecimal.prototype.creerNatAvecRepresentation = function (repDecimale) {
         return this.creerNatAvecValeur(parseInt(repDecimale));
@@ -77,130 +78,307 @@ var NombreDecimal = /** @class */ (function () {
 }());
 exports.NombreDecimal = NombreDecimal;
 /////////////////////////////////////////////////////
-////////////////////////////////////////////////////
-var Zero = /** @class */ (function () {
-    function Zero() {
+var IntPositif = /** @class */ (function () {
+    function IntPositif(nb) {
+        this.nb = nb;
     }
-    Zero.prototype.val = function () {
-        return 0;
+    IntPositif.prototype.chiffre = function (i) {
+        return parseInt(this.representation().charAt(this.taille() - 1 - i));
+        ;
     };
-    Zero.prototype.estNul = function () {
-        return true;
-    };
-    Zero.prototype.predecesseur = function () {
-        throw new Error("* Erreur : naturel nul sans prédécesseur.");
-    };
-    Zero.prototype.taille = function () {
-        return 1;
-    };
-    Zero.prototype.chiffre = function (i) {
-        return 0;
-    };
-    Zero.prototype.creerZero = function () {
-        return this;
-    };
-    Zero.prototype.creerSuccesseur = function (predecesseur) {
-        return new Succ(predecesseur);
-    };
-    Zero.prototype.creerNatAvecValeur = function (valeur) {
-        if (valeur === 0) {
-            return this.creerZero();
-        }
-        return this.creerSuccesseur(this.creerNatAvecValeur(valeur - 1));
-    };
-    Zero.prototype.creerNatAvecRepresentation = function (repDecimale) {
-        return this.creerNatAvecValeur(parseInt(repDecimale));
-    };
-    Zero.prototype.somme = function (x) {
-        return this.creerNatAvecValeur(x.val() + this.val());
-    };
-    Zero.prototype.zero = function () {
-        return this.creerZero();
-    };
-    Zero.prototype.produit = function (x) {
-        return this.creerNatAvecValeur(x.val() * this.val());
-    };
-    Zero.prototype.un = function () {
-        return this.creerNatAvecValeur(1);
-    };
-    Zero.prototype.modulo = function (x) {
-        return this.creerNatAvecValeur(this.val() % x.val());
-    };
-    Zero.prototype.div = function (x) {
-        return this.creerNatAvecValeur(Math.floor(this.val() / x.val()));
-    };
-    Zero.prototype.representation = function () {
-        return this.val().toString();
-    };
-    Zero.prototype.estEgal = function (n) {
-        return n.val() == this.val();
-    };
-    return Zero;
-}());
-exports.Zero = Zero;
-var Succ = /** @class */ (function () {
-    function Succ(pred) {
-        this.pred = pred;
-    }
-    Succ.prototype.val = function () {
-        return this.pred.val() + 1;
-    };
-    Succ.prototype.estNul = function () {
-        return false;
-    };
-    Succ.prototype.predecesseur = function () {
-        return this.pred;
-    };
-    Succ.prototype.taille = function () {
+    IntPositif.prototype.taille = function () {
         return this.representation().length;
     };
-    Succ.prototype.chiffre = function (i) {
-        return parseInt(this.representation().charAt(this.taille() - 1 - i));
+    IntPositif.prototype.val = function () {
+        return this.nb;
     };
-    Succ.prototype.creerZero = function () {
-        return new Zero();
+    IntPositif.prototype.estNul = function () {
+        return false;
     };
-    Succ.prototype.creerSuccesseur = function (predecesseur) {
-        return new Succ(predecesseur);
+    IntPositif.prototype.predecesseur = function () {
+        return this.creerNatAvecValeur(this.val() - 1);
     };
-    Succ.prototype.creerNatAvecValeur = function (valeur) {
+    IntPositif.prototype.creerSuccesseur = function (predecesseur) {
+        return new SuccParInt(predecesseur);
+    };
+    IntPositif.prototype.creerNatAvecValeur = function (valeur) {
         if (valeur === 0) {
             return this.creerZero();
         }
         return this.creerSuccesseur(this.creerNatAvecValeur(valeur - 1));
     };
-    Succ.prototype.creerNatAvecRepresentation = function (repDecimale) {
+    IntPositif.prototype.creerZero = function () {
+        return new ZeroParInt();
+    };
+    IntPositif.prototype.creerNatAvecRepresentation = function (repDecimale) {
         return this.creerNatAvecValeur(parseInt(repDecimale));
     };
-    Succ.prototype.somme = function (x) {
+    IntPositif.prototype.somme = function (x) {
         return this.creerNatAvecValeur(x.val() + this.val());
     };
-    Succ.prototype.zero = function () {
+    IntPositif.prototype.zero = function () {
         return this.creerZero();
     };
-    Succ.prototype.produit = function (x) {
-        return this.creerNatAvecValeur(x.val() * this.val());
-    };
-    Succ.prototype.un = function () {
+    IntPositif.prototype.un = function () {
         return this.creerNatAvecValeur(1);
     };
-    Succ.prototype.modulo = function (x) {
+    IntPositif.prototype.modulo = function (x) {
         return this.creerNatAvecValeur(this.val() % x.val());
     };
-    Succ.prototype.div = function (x) {
+    IntPositif.prototype.div = function (x) {
         return this.creerNatAvecValeur(Math.floor(this.val() / x.val()));
     };
-    Succ.prototype.representation = function () {
+    IntPositif.prototype.produit = function (x) {
+        return this.creerNatAvecValeur(x.val() * this.val());
+    };
+    IntPositif.prototype.representation = function () {
         return this.val().toString();
     };
-    Succ.prototype.estEgal = function (n) {
+    IntPositif.prototype.estEgal = function (n) {
         return n.val() == this.val();
     };
-    return Succ;
+    return IntPositif;
 }());
-exports.Succ = Succ;
-exports.zeroSuccZ = new Zero();
-exports.zeroSuccS = new Succ(new Zero());
+exports.IntPositif = IntPositif;
+///////////////////////////////////////
+var EtatSucc = /** @class */ (function () {
+    function EtatSucc(pred) {
+        this.pred = pred;
+    }
+    EtatSucc.prototype.chiffre = function (i) {
+        return parseInt(this.representation().charAt(this.taille() - 1 - i));
+        ;
+    };
+    EtatSucc.prototype.taille = function () {
+        return this.representation().length;
+    };
+    EtatSucc.prototype.val = function () {
+        return this.pred.val() - 1;
+    };
+    EtatSucc.prototype.estNul = function () {
+        return false;
+    };
+    EtatSucc.prototype.predecesseur = function () {
+        return this.pred;
+    };
+    EtatSucc.prototype.creerSuccesseur = function (predecesseur) {
+        return new SuccParInt(predecesseur);
+    };
+    EtatSucc.prototype.creerNatAvecValeur = function (valeur) {
+        if (valeur < 0) {
+            throw new Error('* Erreur : valeur négative.');
+        }
+        if (valeur % 1 !== 0) {
+            throw new Error('* Erreur : valeur non entière.');
+        }
+        return new natParInt_1.NatParInt(valeur);
+    };
+    EtatSucc.prototype.creerZero = function () {
+        return new ZeroParInt();
+    };
+    EtatSucc.prototype.creerNatAvecRepresentation = function (repDecimale) {
+        return this.creerNatAvecValeur(parseInt(repDecimale));
+    };
+    EtatSucc.prototype.somme = function (x) {
+        return this.creerNatAvecValeur(x.val() + this.val());
+    };
+    EtatSucc.prototype.zero = function () {
+        return this.creerZero();
+    };
+    EtatSucc.prototype.un = function () {
+        return this.creerNatAvecValeur(1);
+    };
+    EtatSucc.prototype.modulo = function (x) {
+        return this.creerNatAvecValeur(this.val() % x.val());
+    };
+    EtatSucc.prototype.div = function (x) {
+        return this.creerNatAvecValeur(Math.floor(this.val() / x.val()));
+    };
+    EtatSucc.prototype.produit = function (x) {
+        return this.creerNatAvecValeur(x.val() * this.val());
+    };
+    EtatSucc.prototype.representation = function () {
+        return this.val().toString();
+    };
+    EtatSucc.prototype.estEgal = function (n) {
+        return n.val() == this.val();
+    };
+    return EtatSucc;
+}());
+exports.EtatSucc = EtatSucc;
+///////////////////////////////////////
+var EtatZero = /** @class */ (function () {
+    function EtatZero() {
+    }
+    EtatZero.prototype.chiffre = function (i) {
+        return 0;
+    };
+    EtatZero.prototype.taille = function () {
+        return 0;
+    };
+    EtatZero.prototype.val = function () {
+        return 0;
+    };
+    EtatZero.prototype.estNul = function () {
+        return false;
+    };
+    EtatZero.prototype.predecesseur = function () {
+        throw new Error("* Erreur : naturel nul sans prédécesseur.");
+    };
+    EtatZero.prototype.creerSuccesseur = function (predecesseur) {
+        return new SuccParInt(predecesseur);
+    };
+    EtatZero.prototype.creerNatAvecValeur = function (valeur) {
+        if (valeur < 0) {
+            throw new Error('* Erreur : valeur négative.');
+        }
+        if (valeur % 1 !== 0) {
+            throw new Error('* Erreur : valeur non entière.');
+        }
+        return new natParInt_1.NatParInt(valeur);
+    };
+    EtatZero.prototype.creerZero = function () {
+        return this;
+    };
+    EtatZero.prototype.creerNatAvecRepresentation = function (repDecimale) {
+        return this.creerNatAvecValeur(parseInt(repDecimale));
+    };
+    EtatZero.prototype.somme = function (x) {
+        return this.creerNatAvecValeur(x.val() + this.val());
+    };
+    EtatZero.prototype.zero = function () {
+        return this.creerZero();
+    };
+    EtatZero.prototype.un = function () {
+        return this.creerNatAvecValeur(1);
+    };
+    EtatZero.prototype.modulo = function (x) {
+        return this.creerNatAvecValeur(this.val() % x.val());
+    };
+    EtatZero.prototype.div = function (x) {
+        return this.creerNatAvecValeur(Math.floor(this.val() / x.val()));
+    };
+    EtatZero.prototype.produit = function (x) {
+        return this.creerNatAvecValeur(x.val() * this.val());
+    };
+    EtatZero.prototype.representation = function () {
+        return this.val().toString();
+    };
+    EtatZero.prototype.estEgal = function (n) {
+        return n.val() == this.val();
+    };
+    return EtatZero;
+}());
+exports.EtatZero = EtatZero;
+////////////////////////////////////////////////////
+var ZeroParInt = /** @class */ (function (_super) {
+    __extends(ZeroParInt, _super);
+    function ZeroParInt() {
+        return _super !== null && _super.apply(this, arguments) || this;
+    }
+    ZeroParInt.prototype.val = function () {
+        return 0;
+    };
+    ZeroParInt.prototype.estNul = function () {
+        return true;
+    };
+    ZeroParInt.prototype.predecesseur = function () {
+        throw new Error("* Erreur : naturel nul sans prédécesseur.");
+    };
+    ZeroParInt.prototype.taille = function () {
+        return 1;
+    };
+    ZeroParInt.prototype.chiffre = function (i) {
+        return 0;
+    };
+    ZeroParInt.prototype.creerZero = function () {
+        return this;
+    };
+    ZeroParInt.prototype.creerSuccesseur = function (predecesseur) {
+        return new SuccParInt(predecesseur);
+    };
+    ZeroParInt.prototype.creerNatAvecRepresentation = function (repDecimale) {
+        return this.creerNatAvecValeur(parseInt(repDecimale));
+    };
+    ZeroParInt.prototype.somme = function (x) {
+        return this.creerNatAvecValeur(x.val() + this.val());
+    };
+    ZeroParInt.prototype.zero = function () {
+        return this.creerZero();
+    };
+    ZeroParInt.prototype.produit = function (x) {
+        return this.creerNatAvecValeur(x.val() * this.val());
+    };
+    ZeroParInt.prototype.un = function () {
+        return this.creerNatAvecValeur(1);
+    };
+    ZeroParInt.prototype.modulo = function (x) {
+        return this.creerNatAvecValeur(this.val() % x.val());
+    };
+    ZeroParInt.prototype.div = function (x) {
+        return this.creerNatAvecValeur(Math.floor(this.val() / x.val()));
+    };
+    ZeroParInt.prototype.representation = function () {
+        return this.val().toString();
+    };
+    ZeroParInt.prototype.estEgal = function (n) {
+        return n.val() == this.val();
+    };
+    return ZeroParInt;
+}(EtatZero));
+exports.ZeroParInt = ZeroParInt;
+var SuccParInt = /** @class */ (function (_super) {
+    __extends(SuccParInt, _super);
+    function SuccParInt(pred) {
+        return _super.call(this, pred) || this;
+    }
+    SuccParInt.prototype.estNul = function () {
+        return false;
+    };
+    SuccParInt.prototype.taille = function () {
+        return this.representation().length;
+    };
+    SuccParInt.prototype.chiffre = function (i) {
+        return parseInt(this.representation().charAt(this.taille() - 1 - i));
+    };
+    SuccParInt.prototype.creerZero = function () {
+        return new ZeroParInt();
+    };
+    SuccParInt.prototype.creerSuccesseur = function (predecesseur) {
+        return new SuccParInt(predecesseur);
+    };
+    SuccParInt.prototype.creerNatAvecRepresentation = function (repDecimale) {
+        return this.creerNatAvecValeur(parseInt(repDecimale));
+    };
+    SuccParInt.prototype.somme = function (x) {
+        return this.creerNatAvecValeur(x.val() + this.val());
+    };
+    SuccParInt.prototype.zero = function () {
+        return this.creerZero();
+    };
+    SuccParInt.prototype.produit = function (x) {
+        return this.creerNatAvecValeur(x.val() * this.val());
+    };
+    SuccParInt.prototype.un = function () {
+        return this.creerNatAvecValeur(1);
+    };
+    SuccParInt.prototype.modulo = function (x) {
+        return this.creerNatAvecValeur(this.val() % x.val());
+    };
+    SuccParInt.prototype.div = function (x) {
+        return this.creerNatAvecValeur(Math.floor(this.val() / x.val()));
+    };
+    SuccParInt.prototype.representation = function () {
+        return this.val().toString();
+    };
+    SuccParInt.prototype.estEgal = function (n) {
+        return n.val() == this.val();
+    };
+    return SuccParInt;
+}(EtatSucc));
+exports.SuccParInt = SuccParInt;
+exports.zeroSuccZ = new ZeroParInt();
+exports.zeroSuccS = new SuccParInt(new ZeroParInt());
 var ZeroRec = /** @class */ (function (_super) {
     __extends(ZeroRec, _super);
     function ZeroRec() {
@@ -237,7 +415,7 @@ var ZeroRec = /** @class */ (function (_super) {
         return n.estNul();
     };
     return ZeroRec;
-}(Zero));
+}(EtatZero));
 exports.ZeroRec = ZeroRec;
 var SuccRec = /** @class */ (function (_super) {
     __extends(SuccRec, _super);
@@ -281,8 +459,30 @@ var SuccRec = /** @class */ (function (_super) {
         return this.predecesseur().estEgal(n.predecesseur());
     };
     return SuccRec;
-}(Succ));
+}(EtatSucc));
 exports.SuccRec = SuccRec;
 exports.zeroSuccRecZ = new ZeroRec();
 exports.zeroSuccRecS = new SuccRec(new ZeroRec());
+var SuccDecimal = /** @class */ (function (_super) {
+    __extends(SuccDecimal, _super);
+    function SuccDecimal(pred) {
+        return _super.call(this, pred) || this;
+    }
+    SuccDecimal.prototype.creerZero = function () {
+        return new ZeroDecimal();
+    };
+    return SuccDecimal;
+}(EtatSucc));
+exports.SuccDecimal = SuccDecimal;
+var ZeroDecimal = /** @class */ (function (_super) {
+    __extends(ZeroDecimal, _super);
+    function ZeroDecimal() {
+        return _super !== null && _super.apply(this, arguments) || this;
+    }
+    ZeroDecimal.prototype.creerZero = function () {
+        return this;
+    };
+    return ZeroDecimal;
+}(EtatZero));
+exports.ZeroDecimal = ZeroDecimal;
 //# sourceMappingURL=natInductif.js.map
