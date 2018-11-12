@@ -27,6 +27,7 @@ export interface EtatNaturel<T>{
 
 export abstract class EtatNaturelPur implements EtatNaturel<EtatNaturelPur>, FabriqueNat<EtatNaturelPur>{
     
+    constructor(){}
     creerZero() : EtatNaturelPur{
         return this.creerNatAvecValeur(0);
     }
