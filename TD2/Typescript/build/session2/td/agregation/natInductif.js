@@ -58,7 +58,7 @@ var ZeroInductif = /** @class */ (function (_super) {
         return this.val() == 0;
     };
     ZeroInductif.prototype.predecesseur = function () {
-        return _super.prototype.creerNatAvecValeur.call(this, this.val() - 1);
+        throw "Erreur : pas de predecesseur de Zero ";
     };
     return ZeroInductif;
 }(NaturelInductif));

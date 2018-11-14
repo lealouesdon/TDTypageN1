@@ -1,10 +1,22 @@
 import {
-    AlgebreNatParInt,Nat,FabriqueNat, AlgebreNatDecimal,AlgebreNatRecursif
+    Nat,FabriqueNat
 } from "./naturels";
 
 import {
     IntPositif
-} from "./natInductif";
+} from "./intPositif";
+
+import{
+    AlgebreNatDecimal
+}from "./algebreNatDecimal"
+
+import{
+    AlgebreNatParInt
+}from "./algebreNatParInt"
+
+import{
+    AlgebreNatRecursif
+}from "./algebreNatRecursif"
 
 export class NatParInt extends IntPositif implements AlgebreNatParInt {
 

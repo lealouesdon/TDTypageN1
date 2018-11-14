@@ -14,7 +14,7 @@ var __extends = (this && this.__extends) || (function () {
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
 var assembleurChaine_1 = require("../../../bibliotheque/assembleurChaine");
-var natInductif_1 = require("./natInductif");
+var nombreDecimal_1 = require("./nombreDecimal");
 function nettoyage(s) {
     var a = assembleurChaine_1.assembleurString(s);
     for (var i = 0; i < s.length; i++) {
@@ -175,7 +175,7 @@ var NatDecimal = /** @class */ (function (_super) {
         return this.representation() === n.representation();
     };
     return NatDecimal;
-}(natInductif_1.NombreDecimal));
+}(nombreDecimal_1.NombreDecimal));
 exports.NatDecimal = NatDecimal;
 exports.natDecimal = new NatDecimal("0");
 var DIX = exports.natDecimal.creerNatAvecRepresentation("10");
@@ -198,7 +198,7 @@ var NatDecimalParInt = /** @class */ (function (_super) {
         return _super.prototype.representation.call(this);
     };
     return NatDecimalParInt;
-}(natInductif_1.NombreDecimal));
+}(nombreDecimal_1.NombreDecimal));
 exports.NatDecimalParInt = NatDecimalParInt;
 var NatDecimalRecursif = /** @class */ (function (_super) {
     __extends(NatDecimalRecursif, _super);
@@ -219,6 +219,6 @@ var NatDecimalRecursif = /** @class */ (function (_super) {
         return _super.prototype.representation.call(this);
     };
     return NatDecimalRecursif;
-}(natInductif_1.NombreDecimal));
+}(nombreDecimal_1.NombreDecimal));
 exports.NatDecimalRecursif = NatDecimalRecursif;
 //# sourceMappingURL=natDecimal.js.map

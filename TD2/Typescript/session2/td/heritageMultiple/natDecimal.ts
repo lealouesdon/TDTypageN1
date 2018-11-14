@@ -1,11 +1,23 @@
 import {
-    Nat, FabriqueNat, AlgebreNatDecimal,AlgebreNatParInt, AlgebreNatRecursif
+    Nat, FabriqueNat, 
 } from "./naturels";
 import { assembleurString } from "../../../bibliotheque/assembleurChaine";
 
 import {
     NombreDecimal
-} from "./natInductif";
+} from "./nombreDecimal";
+
+import{
+    AlgebreNatDecimal
+}from "./algebreNatDecimal"
+
+import{
+    AlgebreNatParInt
+}from "./algebreNatParInt"
+
+import{
+    AlgebreNatRecursif
+}from "./algebreNatRecursif"
 
 function nettoyage(s: string): string {
     const a = assembleurString(s);

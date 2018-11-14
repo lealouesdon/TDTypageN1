@@ -121,6 +121,42 @@ var NatCalculantAvecDesInts = /** @class */ (function (_super) {
     return NatCalculantAvecDesInts;
 }(NatDeleguantEtat));
 exports.NatCalculantAvecDesInts = NatCalculantAvecDesInts;
+var NatCalculantRecursivement = /** @class */ (function (_super) {
+    __extends(NatCalculantRecursivement, _super);
+    function NatCalculantRecursivement(etatNat) {
+        return _super.call(this, etatNat) || this;
+    }
+    NatCalculantRecursivement.prototype.creerNatAvecEtat = function (etat) {
+        return new NatCalculantRecursivement(etat);
+    };
+    NatCalculantRecursivement.prototype.somme = function (nb) {
+        return new NatCalculantRecursivement(_super.prototype.etat.call(this).creerNatAvecValeur(this.val() + nb.val()));
+    };
+    NatCalculantRecursivement.prototype.zero = function () {
+        return new NatCalculantRecursivement(_super.prototype.etat.call(this).creerZero());
+    };
+    NatCalculantRecursivement.prototype.produit = function (nb) {
+        return new NatCalculantRecursivement(_super.prototype.etat.call(this).creerNatAvecValeur(this.val() * nb.val()));
+    };
+    NatCalculantRecursivement.prototype.un = function () {
+        return new NatCalculantRecursivement(_super.prototype.etat.call(this).creerNatAvecValeur(1));
+    };
+    NatCalculantRecursivement.prototype.modulo = function (nb) {
+        return new NatCalculantRecursivement(_super.prototype.etat.call(this).creerNatAvecValeur(this.val() % nb.val()));
+    };
+    NatCalculantRecursivement.prototype.div = function (nb) {
+        return new NatCalculantRecursivement(_super.prototype.etat.call(this).creerNatAvecValeur(this.val() / nb.val()));
+    };
+    /*equals(obj : Object) : boolean {
+
+    }*/
+    NatCalculantRecursivement.prototype.toString = function () {
+        return String(this.val());
+    };
+    return NatCalculantRecursivement;
+}(NatDeleguantEtat));
+exports.NatCalculantRecursivement = NatCalculantRecursivement;
 exports.NatCalculantAvecDesNombresDecimauxZ = new NatCalculantAvecDesNombresDecimaux(new natInductif_1.ZeroInductif());
 exports.NatCalculantAvecDesIntsZ = new NatCalculantAvecDesInts(new natInductif_1.ZeroInductif());
+exports.NatCalculantRecursivementZ = new NatCalculantRecursivement(new natInductif_1.ZeroInductif());
 //# sourceMappingURL=natDeleguantEtat.js.map

@@ -13,7 +13,7 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
-var natInductif_1 = require("./natInductif");
+var intPositif_1 = require("./intPositif");
 var NatParInt = /** @class */ (function (_super) {
     __extends(NatParInt, _super);
     function NatParInt(valeur) {
@@ -71,7 +71,7 @@ var NatParInt = /** @class */ (function (_super) {
         return n.val() == this.val();
     };
     return NatParInt;
-}(natInductif_1.IntPositif));
+}(intPositif_1.IntPositif));
 exports.NatParInt = NatParInt;
 exports.natParInt = new NatParInt(0);
 var NatParIntDecimal = /** @class */ (function (_super) {
@@ -86,7 +86,7 @@ var NatParIntDecimal = /** @class */ (function (_super) {
         return _super.prototype.representation.call(this);
     };
     return NatParIntDecimal;
-}(natInductif_1.IntPositif));
+}(intPositif_1.IntPositif));
 exports.NatParIntDecimal = NatParIntDecimal;
 var NatParIntRecursif = /** @class */ (function (_super) {
     __extends(NatParIntRecursif, _super);
@@ -100,6 +100,6 @@ var NatParIntRecursif = /** @class */ (function (_super) {
         return _super.prototype.representation.call(this);
     };
     return NatParIntRecursif;
-}(natInductif_1.IntPositif));
+}(intPositif_1.IntPositif));
 exports.NatParIntRecursif = NatParIntRecursif;
 //# sourceMappingURL=natParInt.js.map

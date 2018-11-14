@@ -46,7 +46,7 @@ export class ZeroInductif extends NaturelInductif{
     }
 
     predecesseur() : EtatNaturelPur{
-        return super.creerNatAvecValeur(this.val()-1);
+        throw "Erreur : pas de predecesseur de Zero ";
     }
 
 }

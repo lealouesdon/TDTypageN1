@@ -26,7 +26,7 @@ export class IntPositif extends EtatNaturelPur{
     }
 
     creerNatAvecValeur(nb : number) : EtatNaturelPur{
-        return new IntPositif(nb);
+        return super.creerNatAvecValeur(nb);
     }
 
 }

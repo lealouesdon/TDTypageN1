@@ -136,5 +136,47 @@ export class NatCalculantAvecDesInts extends NatDeleguantEtat implements Nat{
     }
 }
 
+export class NatCalculantRecursivement extends NatDeleguantEtat implements Nat{
+
+    constructor(etatNat : EtatNaturelPur){super(etatNat);}
+
+    creerNatAvecEtat(etat : EtatNaturelPur) : Nat{
+        return new NatCalculantRecursivement(etat);
+    }
+
+    somme(nb : Nat) : Nat{
+        return new NatCalculantRecursivement(super.etat().creerNatAvecValeur(this.val() + nb.val()));
+    }
+
+    zero() : Nat{
+        return new NatCalculantRecursivement(super.etat().creerZero());
+    }
+
+    produit(nb : Nat) : Nat{
+        return new NatCalculantRecursivement(super.etat().creerNatAvecValeur(this.val() * nb.val()));
+    }
+
+    un() : Nat{
+        return new NatCalculantRecursivement(super.etat().creerNatAvecValeur(1));
+    }
+
+    modulo(nb : Nat) : Nat{
+        return new NatCalculantRecursivement(super.etat().creerNatAvecValeur(this.val() % nb.val()));
+    }
+
+    div(nb : Nat) : Nat{
+        return new NatCalculantRecursivement(super.etat().creerNatAvecValeur(this.val() / nb.val()));
+    }
+
+    /*equals(obj : Object) : boolean {
+
+    }*/
+
+    toString() : string{
+        return String(this.val());
+    }
+}
+
 export const NatCalculantAvecDesNombresDecimauxZ: FabriqueNat<Nat> = new NatCalculantAvecDesNombresDecimaux(new ZeroInductif());
 export const NatCalculantAvecDesIntsZ: FabriqueNat<Nat> = new NatCalculantAvecDesInts(new ZeroInductif());
+export const NatCalculantRecursivementZ: FabriqueNat<Nat> = new NatCalculantRecursivement(new ZeroInductif());

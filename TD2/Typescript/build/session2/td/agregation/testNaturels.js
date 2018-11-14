@@ -1,26 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 var natDeleguantEtat_1 = require("./natDeleguantEtat");
-/*
-
-- Créer l'entier zéro à partir de la fabrique et l'affecter à une variable zero.
-- Afficher sa valeur.
-- Tester l'égalité entre zero et zero.zero().
-- Créer l'entier un à partir de la fabrique creerSuccesseur et l'affecter à une variable un.
-- Afficher sa valeur.
-- Tester l'égalité entre un et un.un().
-- Calculer le prédécesseur de un.
-- Créer l'entier 5 à partir de la fabrique et l'affecter à une variable cinq.
-- Afficher sa valeur.
-- Afficher la valeur du prédécesseur.
-- Créer l'entier 6 à partir de la fabrique et l'affecter à une variable six.
-- Calculer la somme de 5 et 6 et afficher le résultat.
-- Calculer le produit de 5 et 6 et afficher le résultat.
-- Calculer le quotient et le reste de la division euclidienne de 33 par 6.
-- Calculer la somme de 2_000_000_000 avec lui-même. Rattraper l'exception
-possiblement lancée. Voir les tests du paquet session1.demo1 pour un exemple de rattrapage.
-
-*/
 function testerNat(fab) {
     var zero = fab.creerZero();
     console.log(" 0 ? " + zero.toString());
@@ -43,8 +23,8 @@ function testerNat(fab) {
     console.log(" reste de 33 par 6 soit 3 ? "
         + trenteTrois.modulo(six).toString());
 }
-console.log("*** NatParInt ***");
+console.log("*** NatCalculantAvecDesNombresDecimaux ***");
 testerNat(natDeleguantEtat_1.NatCalculantAvecDesNombresDecimauxZ);
-console.log("*** Zero ***");
+console.log("*** NatCalculantAvecDesInts ***");
 testerNat(natDeleguantEtat_1.NatCalculantAvecDesIntsZ);
 //# sourceMappingURL=testNaturels.js.map

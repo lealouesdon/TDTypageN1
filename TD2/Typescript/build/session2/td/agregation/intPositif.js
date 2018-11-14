@@ -37,7 +37,7 @@ var IntPositif = /** @class */ (function (_super) {
         return _super.prototype.creerNatAvecValeur.call(this, this.val() - 1);
     };
     IntPositif.prototype.creerNatAvecValeur = function (nb) {
-        return new IntPositif(nb);
+        return _super.prototype.creerNatAvecValeur.call(this, nb);
     };
     return IntPositif;
 }(naturels_1.EtatNaturelPur));
