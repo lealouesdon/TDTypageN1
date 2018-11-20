@@ -8,7 +8,7 @@ import java.util.function.Supplier;
 /*
  * Mot ::= Vide | Cons(Caractere, Mot) | Union(Mot, Mot)
  */
-public interface Mot extends Iterable<Character>{
+public interface Mot extends Iterable<Character>,FiltreMot<Mot>,FabriqueMot<Mot>{
 		// Sélecteurs
 		default boolean casVide(){
 			return false;
@@ -41,7 +41,6 @@ public interface Mot extends Iterable<Character>{
 			return new Cons(n, this);
 		}
 		default Mot union(Mot ens){
-			//TODO
 			return new Union(this, ens);
 		}
 		// Autres accesseurs
