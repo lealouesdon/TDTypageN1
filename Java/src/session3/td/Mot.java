@@ -103,7 +103,6 @@ public interface Mot extends Iterable<Character>,FiltreMot<Mot>,FabriqueMot<Mot>
 
 		// Visiteur récursif primitif analogue du filtrage par cas (pattern matching),
 		// programmé itérativement
-		//TODO
 		default <T> T filtrage(Supplier<T> casVide, BiFunction<Character, Mot, Function<T, T>> casCons) {
 			T r = casVide.get();
 			Mot arg = this.vide();

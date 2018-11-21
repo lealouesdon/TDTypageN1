@@ -6,6 +6,7 @@ import java.util.function.Supplier;
 interface FiltreMot<T> {
 	<R> R filtrage(Supplier<R> vide, Function<T, R> casSucc);
 	<R> R filtrageIter(Supplier<R> vide, Function<T, Function<R, R>> casSucc);
+	
 	public static <T extends FiltreMot<T> & FabriqueMot<T>, R> R filtrageIter(T n, Supplier<R> vide, Function<T, Function<R, R>> casSucc){
 		R r = vide.get();
 		T p = n.vide();

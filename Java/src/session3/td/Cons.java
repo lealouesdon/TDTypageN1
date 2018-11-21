@@ -36,7 +36,7 @@ public class Cons implements Mot{
 
 	@Override
 	public <R> R filtrage(Supplier<R> vide, Function<Mot, R> casSucc) {
-		throw new UnsupportedOperationException();
+		return casSucc.apply(Cons.this);
 	}
 
 	@Override

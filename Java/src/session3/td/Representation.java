@@ -9,7 +9,7 @@ class Representation implements Visiteur<String> {
 
 	@Override
 	public String casCons(char n, String r) {
-		return r + n + " ;"; // Inversion dans le cas de la récursion
+		return r + n ; // Inversion dans le cas de la récursion
 	}
 
 }
