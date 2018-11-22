@@ -8,7 +8,7 @@ import java.util.function.Supplier;
 /*
  * Mot ::= Vide | Cons(Caractere, Mot) | Union(Mot, Mot)
  */
-public interface Mot extends Iterable<Character>,FiltreMot<Mot>,FabriqueMot<Mot>{
+public interface Mot extends Iterable<Character>{
 		// Sélecteurs
 		default boolean casVide(){
 			return false;
@@ -37,29 +37,33 @@ public interface Mot extends Iterable<Character>,FiltreMot<Mot>,FabriqueMot<Mot>
 		default Mot vide(){
 			return Vide.SINGLETON; 
 		}
-		default Mot cons(char n){
-			return new Cons(n, this);
+		default Mot consRec(char n){
+			return new ConsRec(n, this);
 		}
-		default Mot union(Mot ens){
-			return new Union(this, ens);
+		default Mot unionRec(Mot ens){
+			return new UnionRec(this, ens);
+		}
+		default Mot consIter(char n){
+			return new ConsRec(n, this);
+		}
+		default Mot unionIter(Mot ens){
+			return new UnionRec(this, ens);
 		}
 		// Autres accesseurs
 		int taille();
-		default boolean estVide(){
+		/*default boolean estVide(){
 			return this.taille() == 0;
-		}
+		}*/
 		default Iterateur iterateur(){
 			return new Iterateur(this);
 		}
-		default 	
-		public Iterator<Character> iterator() {
-			//TODO
+		default public Iterator<Character> iterator() {
 			return this.iterateur();
 		}
 
 		// Visiteur itératif (programmé récursivement puis itérativement)
 		default <T> T accueilRecursif(Visiteur<T> v) {
-			if (this.estVide()) {
+			if (this.casVide()) {
 				return v.casVide();
 			}
 			return v.casCons(this.caractere(), 
@@ -77,7 +81,7 @@ public interface Mot extends Iterable<Character>,FiltreMot<Mot>,FabriqueMot<Mot>
 		// Visiteur itératif avec des lambda-expressions
 		//TODO
 		default <T> T accueilRecursif(Supplier<T> casVide, BiFunction<Character, T, T> casCons) {
-			if (this.estVide()) {
+			if (this.casVide()) {
 				return casVide.get();
 			}
 			return casCons.apply(this.caractere(), this.reste().accueilRecursif(casVide, casCons));
@@ -95,7 +99,7 @@ public interface Mot extends Iterable<Character>,FiltreMot<Mot>,FabriqueMot<Mot>
 		// programmé récursivement
 		//TODO
 		default <T> T filtrageRécursif(Supplier<T> casVide, BiFunction<Character, Mot, T> casCons) {
-			if (this.estVide()) {
+			if (this.casVide()) {
 				return casVide.get();
 			}
 			return casCons.apply(this.caractere(), this.reste());
@@ -107,10 +111,10 @@ public interface Mot extends Iterable<Character>,FiltreMot<Mot>,FabriqueMot<Mot>
 			T r = casVide.get();
 			Mot arg = this.vide();
 			Mot courant = this;
-			while (!courant.estVide()) {
+			while (!courant.casVide()) {
 				char e = courant.caractere();
 				r = casCons.apply(e, arg).apply(r);
-				arg = arg.cons(e);
+				arg = arg.consRec(e);
 				courant = courant.reste();
 			}
 			return r;

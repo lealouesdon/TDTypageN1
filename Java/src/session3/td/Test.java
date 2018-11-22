@@ -12,27 +12,87 @@ public class Test {
 
 	public static void main(String[] args) {
 
-		Mot a = Vide.SINGLETON.cons('a');
+		System.out.println("-------Test Recursif---------------------------------");
+		testRec();
+		
+		System.out.println("-------Test Iteratif---------------------------------");
+		testIter();
+		
+		
+		
+
+	}
+
+	private static void testRec() {
 		Mot b = Vide.SINGLETON;
 		Representation r = new Representation();
 		
 		b = Vide.SINGLETON;
 		for (char alphabet = 'a'; alphabet <='z'; alphabet++ ) {
-			b = b.union(Vide.SINGLETON.cons(alphabet));
+			b = b.unionRec(Vide.SINGLETON.consRec(alphabet));
 		}
-		System.out.println("Ens a...z : " + b.accueil(r));
-		System.out.println("Ens z...a : " + b.accueilRecursif(r));
-		System.out.println("Est vide (false)? "+b.estNul());
+		
+		System.out.println("-------Union---------");
+		System.out.println("Ens z...a : " + b.accueil(r));
+		System.out.println("Ens a...z : " + b.accueilRecursif(r));
+		System.out.println("Est vide (false)? "+b.casVide());
 		System.out.println("Taille (26)? "+b.taille());
 		System.out.println("Taille (26)? "+taille(b));
 		System.out.println("Taille Recursive (26)? "+tailleRec(b));
 		
-		//filtrage
-		Mot vide = Vide.SINGLETON;
-		Cons un = (Cons)Vide.SINGLETON.cons('a');
-		Cons deux =(Cons) un.cons('b');
+		Mot a = b.consRec('1');
+		System.out.println("-------Cons---------");
+		System.out.println("Ens z...a1 : " + a.accueil(r));
+		System.out.println("Ens 1a...z : " + a.accueilRecursif(r));
+		System.out.println("Est vide (false)? "+a.casVide());
+		System.out.println("Taille (27)? "+a.taille());
+		System.out.println("Taille (27)? "+taille(a));
+		System.out.println("Taille Recursive (27)? "+tailleRec(a));
 		
-
+		Mot c = Vide.SINGLETON;
+		System.out.println("-------Vide---------");
+		System.out.println("Ens (vide) : " + c.accueil(r));
+		System.out.println("Ens (vide) : " + c.accueilRecursif(r));
+		System.out.println("Est vide (true)? "+c.casVide());
+		System.out.println("Taille (0)? "+c.taille());
+		System.out.println("Taille (0)? "+taille(c));
+		System.out.println("Taille Recursive (0)? "+tailleRec(c));
+	}
+	
+	private static void testIter() {
+		Mot b = Vide.SINGLETON;
+		Representation r = new Representation();
+		
+		b = Vide.SINGLETON;
+		for (char alphabet = 'a'; alphabet <='z'; alphabet++ ) {
+			b = b.unionIter(Vide.SINGLETON.consIter(alphabet));
+		}
+		
+		System.out.println("-------Union---------");
+		System.out.println("Ens z...a : " + b.accueil(r));
+		System.out.println("Ens a...z : " + b.accueilRecursif(r));
+		System.out.println("Est vide (false)? "+b.casVide());
+		System.out.println("Taille (26)? "+b.taille());
+		System.out.println("Taille (26)? "+taille(b));
+		System.out.println("Taille Recursive (26)? "+tailleRec(b));
+		
+		Mot a = b.consIter('1');
+		System.out.println("-------Cons---------");
+		System.out.println("Ens z...a1 : " + a.accueil(r));
+		System.out.println("Ens 1a...z : " + a.accueilRecursif(r));
+		System.out.println("Est vide (false)? "+a.casVide());
+		System.out.println("Taille (27)? "+a.taille());
+		System.out.println("Taille (27)? "+taille(a));
+		System.out.println("Taille Recursive (27)? "+tailleRec(a));
+		
+		Mot c = Vide.SINGLETON;
+		System.out.println("-------Vide---------");
+		System.out.println("Ens (vide) : " + c.accueil(r));
+		System.out.println("Ens (vide) : " + c.accueilRecursif(r));
+		System.out.println("Est vide (true)? "+c.casVide());
+		System.out.println("Taille (0)? "+c.taille());
+		System.out.println("Taille (0)? "+taille(c));
+		System.out.println("Taille Recursive (0)? "+tailleRec(c));
 	}
 
 }

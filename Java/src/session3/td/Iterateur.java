@@ -10,7 +10,7 @@ public class Iterateur implements java.util.Iterator<Character>{
 
 	private void decomposer(Mot ens) {
 		while (true) {
-			if (ens.estVide()) {
+			if (ens.casVide()) {
 				this.reste = null;
 				break;
 			}
@@ -20,15 +20,15 @@ public class Iterateur implements java.util.Iterator<Character>{
 				break;
 			}
 			if (ens.casUnion()) {
-				if (ens.gauche().estVide()) {
+				if (ens.gauche().casVide()) {
 					ens = ens.droit();
 					continue;
 				} else if (ens.gauche().casCons()) {
-					this.reste = ens.gauche().reste().union(ens.droit());
+					this.reste = ens.gauche().reste().unionRec(ens.droit());
 					this.caractere = ens.gauche().caractere();
 					break;
 				} else {
-					ens = ens.gauche().gauche().union(ens.gauche().droit().union(ens.droit()));
+					ens = ens.gauche().gauche().unionRec(ens.gauche().droit().unionRec(ens.droit()));
 					continue;
 				}
 			}
