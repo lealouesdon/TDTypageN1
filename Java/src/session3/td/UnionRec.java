@@ -1,7 +1,5 @@
 package session3.td;
 
-import java.util.function.Function;
-import java.util.function.Supplier;
 
 public class UnionRec implements Mot{
 	private Mot gauche;
@@ -44,6 +42,20 @@ public class UnionRec implements Mot{
 	@Override
 	public Mot droit() {
 		return this.droit;
+	}
+
+	@Override
+	public char caractereA(int index) {
+		if(index<droit.taille()) {
+			if(index==0) {
+				return droit.caractere();
+			}else {
+				return droit.caractereA(index);
+			}
+			
+		}else {
+			return gauche.caractereA(index-droit.taille());
+		}
 	}
 
 	

@@ -13,4 +13,9 @@ public enum Vide implements Mot{
 	public int taille() {
 		return 0;
 	}
+
+	@Override
+	public char caractereA(int index) {
+		return 0;
+	}	
 }

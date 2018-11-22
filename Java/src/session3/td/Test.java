@@ -39,6 +39,7 @@ public class Test {
 		System.out.println("Taille (26)? "+b.taille());
 		System.out.println("Taille (26)? "+taille(b));
 		System.out.println("Taille Recursive (26)? "+tailleRec(b));
+		System.out.println("Caractère a la place 4 (v)"+b.caractereA(4));
 		
 		Mot a = b.consRec('1');
 		System.out.println("-------Cons---------");
@@ -48,6 +49,8 @@ public class Test {
 		System.out.println("Taille (27)? "+a.taille());
 		System.out.println("Taille (27)? "+taille(a));
 		System.out.println("Taille Recursive (27)? "+tailleRec(a));
+		System.out.println("Caractère a la place 4 (v)"+a.caractereA(4));
+
 		
 		Mot c = Vide.SINGLETON;
 		System.out.println("-------Vide---------");
@@ -75,6 +78,8 @@ public class Test {
 		System.out.println("Taille (26)? "+b.taille());
 		System.out.println("Taille (26)? "+taille(b));
 		System.out.println("Taille Recursive (26)? "+tailleRec(b));
+		System.out.println("Caractère a la place 4 (d)"+b.caractereA(4));
+
 		
 		Mot a = b.consIter('1');
 		System.out.println("-------Cons---------");
@@ -84,6 +89,8 @@ public class Test {
 		System.out.println("Taille (27)? "+a.taille());
 		System.out.println("Taille (27)? "+taille(a));
 		System.out.println("Taille Recursive (27)? "+tailleRec(a));
+		System.out.println("Caractère a la place 4 (d)"+a.caractereA(4));
+
 		
 		Mot c = Vide.SINGLETON;
 		System.out.println("-------Vide---------");

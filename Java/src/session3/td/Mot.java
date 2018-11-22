@@ -44,10 +44,10 @@ public interface Mot extends Iterable<Character>{
 			return new UnionRec(this, ens);
 		}
 		default Mot consIter(char n){
-			return new ConsRec(n, this);
+			return new ConsIter(n, this);
 		}
 		default Mot unionIter(Mot ens){
-			return new UnionRec(this, ens);
+			return new UnionIter(this, ens);
 		}
 		// Autres accesseurs
 		int taille();
@@ -119,6 +119,14 @@ public interface Mot extends Iterable<Character>{
 			}
 			return r;
 		}
+		
+		//Equivalent de la méthode charAt(int index) de la classe String
+		char caractereA(int index) ;
+		//Equivalent de la méthode lastIndexOf(char ch) de la classe String
+		//int derniereOccurence(char ch);
+				
+		//Equivalent de la méthode hashCode() de la classe String
+		//int hashCode();
 	}
 
 	/*

@@ -20,8 +20,7 @@ public class ConsIter implements Mot{
 		Mot tempRest = reste;
 		while(!tempRest.casVide()) {
 			result++;
-			if(!tempRest.casVide())
-				tempRest = tempRest.reste();
+			tempRest = tempRest.reste();
 		}
 		return 1 + result;
 		
@@ -35,5 +34,26 @@ public class ConsIter implements Mot{
 	@Override
 	public Mot reste() {
 		return this.reste;
+	}
+
+	@Override
+	public char caractereA(int index) {
+		if(index<this.taille()) {
+			int result = 0;
+			char resultChar = ' ';
+			Mot tempRest = reste;
+			while(!tempRest.casVide()) {
+				if(result==index-2) {
+					resultChar = tempRest.caractere();
+					break;
+				}
+				result++;
+				tempRest = tempRest.reste();
+			}
+			return resultChar;
+		}else {
+			throw new UnsupportedOperationException();
+		}
+		
 	}
 }

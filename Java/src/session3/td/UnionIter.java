@@ -54,5 +54,30 @@ public class UnionIter implements Mot{
 		return this.droit;
 	}
 
+	@Override
+	public char caractereA(int index) {
+		if(index<this.taille()) {
+			int result = 0;
+			char resultChar = ' ';
+			Mot tempRest;
+			if(index<droit.taille()) {
+				tempRest = droit;
+			}else {
+				tempRest = gauche;
+			}
+			while(!tempRest.casVide()) {
+				if(result==index-1) {
+					resultChar = tempRest.caractere();
+					break;
+				}
+				result++;
+				tempRest = tempRest.reste();
+			}
+			return resultChar;
+		}else {
+			throw new UnsupportedOperationException();
+		}
+	}
+
 	
 }

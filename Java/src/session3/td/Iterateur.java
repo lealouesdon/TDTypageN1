@@ -24,11 +24,11 @@ public class Iterateur implements java.util.Iterator<Character>{
 					ens = ens.droit();
 					continue;
 				} else if (ens.gauche().casCons()) {
-					this.reste = ens.gauche().reste().unionRec(ens.droit());
+					this.reste = ens.gauche().reste().unionIter(ens.droit());
 					this.caractere = ens.gauche().caractere();
 					break;
 				} else {
-					ens = ens.gauche().gauche().unionRec(ens.gauche().droit().unionRec(ens.droit()));
+					ens = ens.gauche().gauche().unionIter(ens.gauche().droit().unionIter(ens.droit()));
 					continue;
 				}
 			}

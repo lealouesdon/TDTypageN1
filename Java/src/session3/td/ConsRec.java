@@ -1,8 +1,5 @@
 package session3.td;
 
-import java.util.function.Function;
-import java.util.function.Supplier;
-
 public class ConsRec implements Mot{
 	private char caractere;
 	private Mot reste;
@@ -32,5 +29,14 @@ public class ConsRec implements Mot{
 	@Override
 	public Mot reste() {
 		return this.reste;
+	}
+
+	@Override
+	public char caractereA(int index) {
+		if(index==0) {
+			return this.caractere;
+		}else {
+			return reste.caractereA(index);
+		}
 	}
 }
