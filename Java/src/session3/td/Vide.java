@@ -12,10 +12,5 @@ public enum Vide implements Mot{
 	@Override
 	public int taille() {
 		return 0;
-	}
-
-	@Override
-	public int derniereOccurence(char ch) {
-		throw new UnsupportedOperationException();
 	}	
 }

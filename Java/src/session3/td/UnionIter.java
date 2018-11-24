@@ -52,58 +52,5 @@ public class UnionIter implements Mot{
 		return this.droit;
 	}
 
-	//@Override
-	/*public char caractereA(int index) {
-		if(index<this.taille()) {
-			int result = 0;
-			char resultChar = ' ';
-			Mot tempRest;
-			if(index<droit.taille()) {
-				tempRest = droit;
-			}else {
-				tempRest = gauche;
-			}
-			while(!tempRest.casVide()) {
-				if(result==index) {
-					resultChar = tempRest.caractere();
-					break;
-				}
-				result++;
-				tempRest = tempRest.reste();
-			}
-			return resultChar;
-		}else {
-			throw new UnsupportedOperationException();
-		}
-	}*/
-
-	@Override
-	public int derniereOccurence(char ch) {
-
-			int result = 0;
-			int occurence = 0;
-			Mot tempRest = droit;
-						
-			while(!tempRest.casVide()) {
-				if(tempRest.caractere()==ch) {
-					occurence = result-1;
-				}
-				result++;
-				tempRest = tempRest.reste();
-			}
-			
-			tempRest = gauche;
-			
-			while(!tempRest.casVide()) {
-				if(tempRest.caractere()==ch) {
-					occurence = result-1;
-				}
-				result++;
-				tempRest = tempRest.reste();
-			}
-			return occurence;
-		
-	}
-
 	
 }

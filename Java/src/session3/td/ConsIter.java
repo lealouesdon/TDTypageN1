@@ -35,40 +35,4 @@ public class ConsIter implements Mot{
 	public Mot reste() {
 		return this.reste;
 	}
-
-	/*@Override
-	public char caractereA(int index) {
-		if(index<this.taille()) {
-			int result = 0;
-			char resultChar = ' ';
-			Mot tempRest = reste;
-			while(!tempRest.casVide()) {
-				if(result==index-1) {
-					resultChar = tempRest.caractere();
-					break;
-				}
-				result++;
-				tempRest = tempRest.reste();
-			}
-			return resultChar;
-		}else {
-			throw new UnsupportedOperationException();
-		}
-		
-	}*/
-
-	@Override
-	public int derniereOccurence(char ch) {
-			int i = 0;
-			int occurence = 0;
-			Mot tempRest = reste;
-			while(!tempRest.casVide()) {
-				if(tempRest.caractere()==ch) {
-					occurence = i+1;
-				}
-				i++;
-				tempRest = tempRest.reste();
-			}
-			return occurence;
-	}
 }
