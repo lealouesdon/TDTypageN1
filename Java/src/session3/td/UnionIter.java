@@ -15,14 +15,12 @@ public class UnionIter implements Mot{
 		Mot tempGauche = gauche;
 		while(!tempGauche.casVide()) {
 			result++;
-			if(!tempGauche.casVide())
-				tempGauche = tempGauche.reste();
+			tempGauche = tempGauche.reste();
 		}
 		Mot tempDroit = droit;
 		while(!tempDroit.casVide()) {
 			result++;
-			if(!tempDroit.casVide())
-				tempDroit = tempDroit.reste();
+			tempDroit = tempDroit.reste();
 		}
 		return result;
 	}
@@ -54,8 +52,8 @@ public class UnionIter implements Mot{
 		return this.droit;
 	}
 
-	@Override
-	public char caractereA(int index) {
+	//@Override
+	/*public char caractereA(int index) {
 		if(index<this.taille()) {
 			int result = 0;
 			char resultChar = ' ';
@@ -66,7 +64,7 @@ public class UnionIter implements Mot{
 				tempRest = gauche;
 			}
 			while(!tempRest.casVide()) {
-				if(result==index-1) {
+				if(result==index) {
 					resultChar = tempRest.caractere();
 					break;
 				}
@@ -77,6 +75,34 @@ public class UnionIter implements Mot{
 		}else {
 			throw new UnsupportedOperationException();
 		}
+	}*/
+
+	@Override
+	public int derniereOccurence(char ch) {
+
+			int result = 0;
+			int occurence = 0;
+			Mot tempRest = droit;
+						
+			while(!tempRest.casVide()) {
+				if(tempRest.caractere()==ch) {
+					occurence = result-1;
+				}
+				result++;
+				tempRest = tempRest.reste();
+			}
+			
+			tempRest = gauche;
+			
+			while(!tempRest.casVide()) {
+				if(tempRest.caractere()==ch) {
+					occurence = result-1;
+				}
+				result++;
+				tempRest = tempRest.reste();
+			}
+			return occurence;
+		
 	}
 
 	

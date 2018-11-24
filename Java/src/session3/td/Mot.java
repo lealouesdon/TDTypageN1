@@ -79,7 +79,6 @@ public interface Mot extends Iterable<Character>{
 		}
 
 		// Visiteur itératif avec des lambda-expressions
-		//TODO
 		default <T> T accueilRecursif(Supplier<T> casVide, BiFunction<Character, T, T> casCons) {
 			if (this.casVide()) {
 				return casVide.get();
@@ -97,7 +96,6 @@ public interface Mot extends Iterable<Character>{
 
 		// Visiteur récursif primitif analogue du filtrage par cas (pattern matching),
 		// programmé récursivement
-		//TODO
 		default <T> T filtrageRécursif(Supplier<T> casVide, BiFunction<Character, Mot, T> casCons) {
 			if (this.casVide()) {
 				return casVide.get();
@@ -121,9 +119,9 @@ public interface Mot extends Iterable<Character>{
 		}
 		
 		//Equivalent de la méthode charAt(int index) de la classe String
-		char caractereA(int index) ;
+		//char caractereA(int index) ;
 		//Equivalent de la méthode lastIndexOf(char ch) de la classe String
-		//int derniereOccurence(char ch);
+		int derniereOccurence(char ch);
 				
 		//Equivalent de la méthode hashCode() de la classe String
 		//int hashCode();

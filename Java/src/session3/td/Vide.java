@@ -15,7 +15,7 @@ public enum Vide implements Mot{
 	}
 
 	@Override
-	public char caractereA(int index) {
-		return 0;
+	public int derniereOccurence(char ch) {
+		throw new UnsupportedOperationException();
 	}	
 }

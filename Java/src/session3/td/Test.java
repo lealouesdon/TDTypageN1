@@ -25,81 +25,58 @@ public class Test {
 
 	private static void testRec() {
 		Mot b = Vide.SINGLETON;
-		Representation r = new Representation();
-		
+
 		b = Vide.SINGLETON;
 		for (char alphabet = 'a'; alphabet <='z'; alphabet++ ) {
 			b = b.unionRec(Vide.SINGLETON.consRec(alphabet));
 		}
-		
 		System.out.println("-------Union---------");
-		System.out.println("Ens z...a : " + b.accueil(r));
-		System.out.println("Ens a...z : " + b.accueilRecursif(r));
-		System.out.println("Est vide (false)? "+b.casVide());
-		System.out.println("Taille (26)? "+b.taille());
-		System.out.println("Taille (26)? "+taille(b));
-		System.out.println("Taille Recursive (26)? "+tailleRec(b));
-		System.out.println("Caractère a la place 4 (v)"+b.caractereA(4));
-		
-		Mot a = b.consRec('1');
+		test(b);
 		System.out.println("-------Cons---------");
-		System.out.println("Ens z...a1 : " + a.accueil(r));
-		System.out.println("Ens 1a...z : " + a.accueilRecursif(r));
-		System.out.println("Est vide (false)? "+a.casVide());
-		System.out.println("Taille (27)? "+a.taille());
-		System.out.println("Taille (27)? "+taille(a));
-		System.out.println("Taille Recursive (27)? "+tailleRec(a));
-		System.out.println("Caractère a la place 4 (v)"+a.caractereA(4));
+		Mot a = b.consRec('1');
+		test(a);
 
-		
-		Mot c = Vide.SINGLETON;
+
 		System.out.println("-------Vide---------");
-		System.out.println("Ens (vide) : " + c.accueil(r));
-		System.out.println("Ens (vide) : " + c.accueilRecursif(r));
-		System.out.println("Est vide (true)? "+c.casVide());
-		System.out.println("Taille (0)? "+c.taille());
-		System.out.println("Taille (0)? "+taille(c));
-		System.out.println("Taille Recursive (0)? "+tailleRec(c));
+		Mot c = Vide.SINGLETON;
+		test(c);
 	}
 	
 	private static void testIter() {
 		Mot b = Vide.SINGLETON;
-		Representation r = new Representation();
-		
+
 		b = Vide.SINGLETON;
 		for (char alphabet = 'a'; alphabet <='z'; alphabet++ ) {
 			b = b.unionIter(Vide.SINGLETON.consIter(alphabet));
 		}
-		
 		System.out.println("-------Union---------");
-		System.out.println("Ens z...a : " + b.accueil(r));
-		System.out.println("Ens a...z : " + b.accueilRecursif(r));
-		System.out.println("Est vide (false)? "+b.casVide());
-		System.out.println("Taille (26)? "+b.taille());
-		System.out.println("Taille (26)? "+taille(b));
-		System.out.println("Taille Recursive (26)? "+tailleRec(b));
-		System.out.println("Caractère a la place 4 (d)"+b.caractereA(4));
-
-		
-		Mot a = b.consIter('1');
+		test(b);
 		System.out.println("-------Cons---------");
-		System.out.println("Ens z...a1 : " + a.accueil(r));
-		System.out.println("Ens 1a...z : " + a.accueilRecursif(r));
-		System.out.println("Est vide (false)? "+a.casVide());
-		System.out.println("Taille (27)? "+a.taille());
-		System.out.println("Taille (27)? "+taille(a));
-		System.out.println("Taille Recursive (27)? "+tailleRec(a));
-		System.out.println("Caractère a la place 4 (d)"+a.caractereA(4));
+		Mot a = b.consIter('1');
+		test(a);
 
-		
-		Mot c = Vide.SINGLETON;
+
 		System.out.println("-------Vide---------");
-		System.out.println("Ens (vide) : " + c.accueil(r));
-		System.out.println("Ens (vide) : " + c.accueilRecursif(r));
-		System.out.println("Est vide (true)? "+c.casVide());
-		System.out.println("Taille (0)? "+c.taille());
-		System.out.println("Taille (0)? "+taille(c));
-		System.out.println("Taille Recursive (0)? "+tailleRec(c));
+		Mot c = Vide.SINGLETON;
+		test(c);
+	}
+	
+	
+	private static void test(Mot m) {
+		Representation r = new Representation();
+		CharAt ch = new CharAt(4);
+		ToUpperCase tuc = new ToUpperCase();
+		LastOccurence last = new LastOccurence('e');
+		System.out.println("Mot : " + m.accueil(r));
+		System.out.println("Mot recursif : " + m.accueilRecursif(r));
+		System.out.println("Est vide ? "+m.casVide());
+		System.out.println("Taille ? "+m.taille());
+		System.out.println("Taille ? "+taille(m));
+		System.out.println("Taille Recursive ? "+tailleRec(m));
+		System.out.println("Caractère a la place 4 : "+m.accueil(ch));
+		System.out.println("Derniere occurence de e : "+m.accueil(last));
+		System.out.println("En majuscule : "+m.accueil(tuc));
+		System.out.println("En majuscule (aceuil recursif) : "+m.accueilRecursif(tuc));
 	}
 
 }

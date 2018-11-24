@@ -44,7 +44,7 @@ public class UnionRec implements Mot{
 		return this.droit;
 	}
 
-	@Override
+	/*@Override
 	public char caractereA(int index) {
 		if(index<droit.taille()) {
 			if(index==0) {
@@ -56,6 +56,21 @@ public class UnionRec implements Mot{
 		}else {
 			return gauche.caractereA(index-droit.taille());
 		}
+	}*/
+
+	@Override
+	public int derniereOccurence(char ch) {
+		// Returns the index of the of the character ch
+
+	    if (ch == this.caractere()) {
+	        // base case: ch is at the beginning of str; return 0
+	        return 0; 
+	    }
+
+	    // recursive step
+	    int subIndex = this.reste().derniereOccurence(ch);
+
+	    return 1 + subIndex; 
 	}
 
 	

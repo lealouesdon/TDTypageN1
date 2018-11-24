@@ -36,14 +36,14 @@ public class ConsIter implements Mot{
 		return this.reste;
 	}
 
-	@Override
+	/*@Override
 	public char caractereA(int index) {
 		if(index<this.taille()) {
 			int result = 0;
 			char resultChar = ' ';
 			Mot tempRest = reste;
 			while(!tempRest.casVide()) {
-				if(result==index-2) {
+				if(result==index-1) {
 					resultChar = tempRest.caractere();
 					break;
 				}
@@ -55,5 +55,20 @@ public class ConsIter implements Mot{
 			throw new UnsupportedOperationException();
 		}
 		
+	}*/
+
+	@Override
+	public int derniereOccurence(char ch) {
+			int i = 0;
+			int occurence = 0;
+			Mot tempRest = reste;
+			while(!tempRest.casVide()) {
+				if(tempRest.caractere()==ch) {
+					occurence = i+1;
+				}
+				i++;
+				tempRest = tempRest.reste();
+			}
+			return occurence;
 	}
 }

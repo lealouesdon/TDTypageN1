@@ -31,12 +31,27 @@ public class ConsRec implements Mot{
 		return this.reste;
 	}
 
-	@Override
+	/*@Override
 	public char caractereA(int index) {
 		if(index==0) {
 			return this.caractere;
 		}else {
 			return reste.caractereA(index);
 		}
+	}*/
+
+	@Override
+	public int derniereOccurence(char ch) {
+		// Returns the index of the of the character ch
+
+	    if (ch == this.caractere) {
+	        // base case: ch is at the beginning of str; return 0
+	        return 1; 
+	    }
+
+	    // recursive step
+	    int subIndex = reste.derniereOccurence(ch);
+
+	    return 1 + subIndex; 
 	}
 }

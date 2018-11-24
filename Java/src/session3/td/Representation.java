@@ -13,3 +13,4 @@ class Representation implements Visiteur<String> {
 	}
 
 }
+
