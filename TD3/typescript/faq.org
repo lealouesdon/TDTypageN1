@@ -1,0 +1,18 @@
+- ts = Typescript
+- js = Javascrit
+
+* Compilation et exécution de ts
+
+Voir le readme.
+
+* Equivalent de StringBuilder en ts ?
+
+Non, mais on peut utiliser un tableau de "string", chaque caractère étant
+un "string", puis l'opération "join". Voir "NatDecimal" en ts sur le dépôt
+(fichier "typescript/session1/demo1/v1/naturels.ts").
+
+* Méthodes par défaut dans des interfaces en ts ?
+
+Non, mais on peut utiliser une astuce dans un style js : voir
+https://www.typescriptlang.org/docs/handbook/mixins.html, ou le
+répertoire "typescript/heritageMultiple".
