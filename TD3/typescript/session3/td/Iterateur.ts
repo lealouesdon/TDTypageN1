@@ -41,13 +41,18 @@ export class Iterateur implements IterableIterator<string>{
         return this.var_reste!=null;
     }
 
-    suivant():string{
-        if(this.var_reste.casVide()){
-            throw new Error();
-        } else {
-            var c : string = this.var_caractere;
-            this.decomposer(this.var_reste);
-            return c;
+    suivant():IteratorResult<string>{
+        if (this.var_reste == null) {
+			return {
+                done: true,
+                value: "" 
+            }
+        }
+		var r = this.var_caractere;
+		this.decomposer(this.var_reste);
+        return {
+            done: false,
+            value: r
         }
     }
 

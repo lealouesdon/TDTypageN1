@@ -14,6 +14,8 @@
         "td1": "node build/session1/td/testNaturels",
         "td3": "node build/session3/td/Test"
     },
-    "devDependencies": {},
+    "devDependencies": {
+        "typescript": "^3.1.6"
+    },
     "dependencies": {}
 }

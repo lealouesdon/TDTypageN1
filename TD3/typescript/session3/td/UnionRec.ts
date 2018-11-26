@@ -28,8 +28,13 @@ export class UnionRec extends Mot {
     }
 
     caractere():string{
-        var i:Iterateur = this.iterateur();
-        return i.suivant();
+        if(!this.motGauche.estVide()) {
+			return this.motGauche.caractere();
+        } else if(!this.motDroit.estVide()) {
+            return this.motDroit.caractere();
+        } else {
+            throw Error("UnsupportedOperation");
+        }	
     }
 
     gauche():Mot{

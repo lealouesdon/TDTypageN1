@@ -5,16 +5,17 @@ export class ConsRec extends Mot{
 
     public var_lettre:string;
     public var_reste:Mot;
-    public var_taille:number;
+    public vTaille:number;
 
     public constructor(i:string, ens:Mot){
         super();
         this.var_lettre=i;
         this.var_reste=ens;
+        this.vTaille = 1 + this.var_reste.taille();
     }
 
     taille(): number {
-        return this.var_taille;
+        return this.vTaille;
     }
 
     casCons():boolean{
