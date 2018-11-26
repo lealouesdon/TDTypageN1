@@ -1,0 +1,13 @@
+* Détails du code :
+
+Il compile dans certaines mesures : 
+
+  - Si il y a plusieurs caractères, le visiteur ne fonctionne pas. (Problème de boucle infinie)
+  - S'il n'y en a qu'un seul, tout fonctionne.
+
+
+** Compiler le code : 
+
+  - npm run build
+  - npm run td3
+
