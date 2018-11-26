@@ -15,11 +15,11 @@ function testRec(){
     var b = Vide.SINGLETON;
 
     b = b.unionRec(Vide.SINGLETON.consRec('e'));
-    b = b.unionRec(Vide.SINGLETON.consRec('e'));
-    b = b.unionRec(Vide.SINGLETON.consRec('e'));
-    b = b.unionRec(Vide.SINGLETON.consRec('e'));
-    b = b.unionRec(Vide.SINGLETON.consRec('e'));
-    b = b.unionRec(Vide.SINGLETON.consRec('e'));
+    b = b.unionRec(Vide.SINGLETON.consRec('p'));
+    b = b.unionRec(Vide.SINGLETON.consRec('f'));
+    b = b.unionRec(Vide.SINGLETON.consRec('c'));
+    b = b.unionRec(Vide.SINGLETON.consRec('m'));
+    b = b.unionRec(Vide.SINGLETON.consRec('k'));
 
     console.log("-------Union---------");
     test(b);
