@@ -8,7 +8,8 @@
     "scripts": {
         "tsc": "tsc",
         "webpack": "webpack",
-        "build": "npm run tsc"
+        "build": "npm run tsc",
+        "surete": "node build/surete"
     },
     "devDependencies": {},
     "dependencies": {}
