@@ -8,10 +8,10 @@ namespace variance {
     }
 
     function produireErreurParCovariance(): void {
-      var a = new A();
-      var b = new B();
-      a = b; 
-      //a.f();
+        let arrayB : Array<A> = new Array<B>() ;
+        let b1 : B = new B() ;
+        arrayB.push(b1) ;
+        arrayB[0].f();
     }
 
     function produireErreurParContravariance(): void {
